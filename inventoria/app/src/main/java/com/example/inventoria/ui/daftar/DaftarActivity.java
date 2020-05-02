@@ -1,0 +1,218 @@
+package com.example.inventoria.ui.daftar;
+
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.inventoria.R;
+import com.example.inventoria.ui.login.LoginActivity;
+
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class DaftarActivity extends AppCompatActivity {
+
+    TextView login;
+    // Creating EditText.
+    EditText Email, Username, Password, Nama, Level, Tgl_lahir, Jenis_kelamin ;
+
+    // Creating button;
+    Button Daftar;
+
+    // Creating Volley RequestQueue.
+    RequestQueue requestQueue;
+
+    // Create string variable to hold the EditText Value.
+    String EmailHolder, UsernameHolder, PasswordHolder, NamaHolder, LevelHolder, Tgl_lahirHolder, Jenis_kelaminHolder;
+
+    // Creating Progress dialog.
+    ProgressDialog progressDialog;
+
+    // Storing server url into String variable.
+    String HttpUrl = "http://192.168.43.178/inventori/api/daftar";
+
+    Boolean CheckEditText ;
+
+    public DaftarActivity() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException, IOException {
+    }
+    @Override
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_daftar);
+        login = (TextView) findViewById(R.id.login1);
+
+
+        login.setOnClickListener(view -> {
+            Intent intent = new Intent(DaftarActivity.this, LoginActivity.class);
+
+            // Sending User Email to another activity using intent.
+
+
+            startActivity(intent);
+
+        });
+
+        Email = (EditText) findViewById(R.id.d_email);
+
+        Username = (EditText) findViewById(R.id.d_username);
+
+        Password = (EditText) findViewById(R.id.d_password);
+
+        Nama = (EditText) findViewById(R.id.d_nama);
+
+        Level = (EditText) findViewById(R.id.d_level);
+
+        Tgl_lahir = (EditText) findViewById(R.id.d_tgl_lahir);
+
+        Jenis_kelamin = (EditText) findViewById(R.id.d_jenis_kelamin);
+
+        // Assigning ID's to Button.
+        Daftar = (Button) findViewById(R.id.daftar);
+
+        // Creating Volley newRequestQueue .
+        requestQueue = Volley.newRequestQueue(DaftarActivity.this);
+
+        // Assigning Activity this to progress dialog.
+        progressDialog = new ProgressDialog(DaftarActivity.this);
+
+        // Adding click listener to button.
+        Daftar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                CheckEditTextIsEmptyOrNot();
+
+                if(CheckEditText){
+
+                    UserRegistration();
+
+                        Intent intent = new Intent(DaftarActivity.this, LoginActivity.class);
+
+                        // Sending User Email to another activity using intent.
+
+                        startActivity(intent);
+
+
+                }
+                else {
+
+                    Toast.makeText(DaftarActivity.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+
+    }
+
+    public void UserRegistration(){
+
+        // Showing progress dialog at user registration time.
+        progressDialog.setMessage("Please Wait, We are Inserting Your Data on Server");
+        progressDialog.show();
+
+        // Creating string request with post method.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, HttpUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String ServerResponse) {
+
+                        // Hiding the progress dialog after all task complete.
+                        progressDialog.dismiss();
+
+                        // Showing Echo Response Message Coming From Server.
+                        Toast.makeText(getApplicationContext(),"Pendaftaran berhasil, silahkan login!",Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                        // Hiding the progress dialog after all task complete.
+                        progressDialog.dismiss();
+
+                        // Showing error message if something goes wrong.
+                        Toast.makeText(DaftarActivity.this, volleyError.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+
+                // Creating Map String Params.
+                Map<String, String> params = new HashMap<String, String>();
+
+                // Adding All values to Params.
+                // The firs argument should be same sa your MySQL database table columns.
+                params.put("email", EmailHolder);
+                params.put("username", UsernameHolder);
+                params.put("password", PasswordHolder);
+                params.put("nama", NamaHolder);
+                params.put("level", LevelHolder);
+                params.put("tgl_lahir", Tgl_lahirHolder);
+                params.put("jenis_kelamin", Jenis_kelaminHolder);
+
+                return params;
+            }
+
+        };
+
+        // Creating RequestQueue.
+        RequestQueue requestQueue = Volley.newRequestQueue(DaftarActivity.this);
+
+        // Adding the StringRequest object into requestQueue.
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void CheckEditTextIsEmptyOrNot(){
+
+        // Getting values from EditText.
+        EmailHolder = Email.getText().toString().trim();
+        UsernameHolder = Username.getText().toString().trim();
+        PasswordHolder = Password.getText().toString().trim();
+        NamaHolder = Nama.getText().toString().trim();
+        LevelHolder = Level.getText().toString().trim();
+        Tgl_lahirHolder = Tgl_lahir.getText().toString().trim();
+        Jenis_kelaminHolder = Jenis_kelamin.getText().toString().trim();
+
+        // Checking whether EditText value is empty or not.
+        if(TextUtils.isEmpty(EmailHolder) || TextUtils.isEmpty(UsernameHolder) || TextUtils.isEmpty(PasswordHolder) || TextUtils.isEmpty(NamaHolder) || TextUtils.isEmpty(LevelHolder) || TextUtils.isEmpty(Tgl_lahirHolder) || TextUtils.isEmpty(Jenis_kelaminHolder))
+        {
+
+            // If any of EditText is empty then set variable value as False.
+            CheckEditText = false;
+
+        }
+        else {
+
+            // If any of EditText is filled then set variable value as True.
+            CheckEditText = true ;
+        }
+    }
+
+
+
+
+}
+
