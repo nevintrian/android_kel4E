@@ -19,7 +19,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.inventoria.MainActivity;
 import com.example.inventoria.R;
+import com.example.inventoria.network.Url;
 import com.example.inventoria.ui.daftar.DaftarActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     // Storing server url into String variable.
-    String HttpUrl = "http://192.168.43.178/inventori/api/login";
+    String HttpUrl = Url.URL + "login/";
 
     Boolean CheckEditText;
 
@@ -91,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
 
-                    Toast.makeText(LoginActivity.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -115,12 +120,14 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Hiding the progress dialog after all task complete.
                         progressDialog.dismiss();
-
+                        try {
                         // Matching server responce message to our text.
-                        if(ServerResponse.equalsIgnoreCase("sukses")) {
+                        JSONObject obj = new JSONObject(ServerResponse);
+                        if(obj.optString("status").equals("true")){
 
                             // If response matched then show the toast.
-                            Toast.makeText(LoginActivity.this, "Logged In Successfully", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, obj.optString("message")+"", Toast.LENGTH_SHORT).show();
+
 
                             // Finish the current Login activity.
                             finish();
@@ -133,14 +140,10 @@ public class LoginActivity extends AppCompatActivity {
 
                             startActivity(intent);
                         }
-                        else {
 
-                            // Showing Echo Response Message Coming From Server.
-                            Toast.makeText(LoginActivity.this, ServerResponse, Toast.LENGTH_LONG).show();
-
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -151,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         // Showing error message if something goes wrong.
-                        Toast.makeText(LoginActivity.this, volleyError.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Login gagal, username dan password salah",Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override

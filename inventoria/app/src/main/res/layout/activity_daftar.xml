@@ -52,14 +52,7 @@
                 android:inputType="textPassword" />
 
 
-            <EditText
-                android:id="@+id/d_level"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
 
-                android:hint="Level"
-                android:inputType="text" />
 
             <EditText
                 android:id="@+id/d_nama"
@@ -79,15 +72,22 @@
                 android:hint="Tanggal Lahir"
                 android:inputType="text" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/d_jenis_kelamin"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-
+                android:entries="@array/jenis_kelamin"
                 android:hint="Jenis Kelamin"
                 android:inputType="text" />
-
+            <Spinner
+                android:id="@+id/d_level"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:entries="@array/level"
+                android:hint="Level"
+                android:inputType="text" />
 
 
 

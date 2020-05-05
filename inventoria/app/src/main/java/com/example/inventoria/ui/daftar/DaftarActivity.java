@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.inventoria.R;
+import com.example.inventoria.network.Url;
 import com.example.inventoria.ui.login.LoginActivity;
 
 import java.io.IOException;
@@ -34,7 +37,13 @@ public class DaftarActivity extends AppCompatActivity {
 
     TextView login;
     // Creating EditText.
-    EditText Email, Username, Password, Nama, Level, Tgl_lahir, Jenis_kelamin ;
+    EditText Email;
+    EditText Username;
+    EditText Password;
+    EditText Nama;
+    Spinner Level;
+    EditText Tgl_lahir;
+    Spinner Jenis_kelamin ;
 
     // Creating button;
     Button Daftar;
@@ -49,14 +58,16 @@ public class DaftarActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     // Storing server url into String variable.
-    String HttpUrl = "http://192.168.43.178/inventori/api/daftar";
+
+
+    String HttpUrl = Url.URL + "daftar/";
 
     Boolean CheckEditText ;
 
     public DaftarActivity() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException, IOException {
     }
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar);
@@ -81,11 +92,11 @@ public class DaftarActivity extends AppCompatActivity {
 
         Nama = (EditText) findViewById(R.id.d_nama);
 
-        Level = (EditText) findViewById(R.id.d_level);
+        Level = (Spinner) findViewById(R.id.d_level);
 
         Tgl_lahir = (EditText) findViewById(R.id.d_tgl_lahir);
 
-        Jenis_kelamin = (EditText) findViewById(R.id.d_jenis_kelamin);
+        Jenis_kelamin = (Spinner) findViewById(R.id.d_jenis_kelamin);
 
         // Assigning ID's to Button.
         Daftar = (Button) findViewById(R.id.daftar);
@@ -117,7 +128,7 @@ public class DaftarActivity extends AppCompatActivity {
                 }
                 else {
 
-                    Toast.makeText(DaftarActivity.this, "Please fill all form fields.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DaftarActivity.this, "data belum diisi", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -129,7 +140,7 @@ public class DaftarActivity extends AppCompatActivity {
     public void UserRegistration(){
 
         // Showing progress dialog at user registration time.
-        progressDialog.setMessage("Please Wait, We are Inserting Your Data on Server");
+        progressDialog.setMessage("Please Wait");
         progressDialog.show();
 
         // Creating string request with post method.
@@ -153,7 +164,7 @@ public class DaftarActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         // Showing error message if something goes wrong.
-                        Toast.makeText(DaftarActivity.this, volleyError.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Pendaftaran gagal",Toast.LENGTH_LONG).show();
                     }
                 }) {
             @Override
@@ -192,9 +203,9 @@ public class DaftarActivity extends AppCompatActivity {
         UsernameHolder = Username.getText().toString().trim();
         PasswordHolder = Password.getText().toString().trim();
         NamaHolder = Nama.getText().toString().trim();
-        LevelHolder = Level.getText().toString().trim();
+        LevelHolder = Level.getSelectedItem().toString().trim();
         Tgl_lahirHolder = Tgl_lahir.getText().toString().trim();
-        Jenis_kelaminHolder = Jenis_kelamin.getText().toString().trim();
+        Jenis_kelaminHolder = Jenis_kelamin.getSelectedItem().toString().trim();
 
         // Checking whether EditText value is empty or not.
         if(TextUtils.isEmpty(EmailHolder) || TextUtils.isEmpty(UsernameHolder) || TextUtils.isEmpty(PasswordHolder) || TextUtils.isEmpty(NamaHolder) || TextUtils.isEmpty(LevelHolder) || TextUtils.isEmpty(Tgl_lahirHolder) || TextUtils.isEmpty(Jenis_kelaminHolder))
