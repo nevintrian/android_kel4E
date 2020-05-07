@@ -33,6 +33,10 @@
         <activity android:name=".ui.daftar.DaftarActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".ui.user.editor.UserActivity">
+        </activity>
+        <activity android:name=".ui.supplier.editor.SupplierActivity">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

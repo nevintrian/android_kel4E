@@ -19,10 +19,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.inventoria.MainActivity;
 import com.example.inventoria.R;
-import com.example.inventoria.network.Url;
+import com.example.inventoria.tools.SessionManager;
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.daftar.DaftarActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-
+    SessionManager sessionManager;
     TextView daftar;
     // Creating EditText.
     EditText Username, Password;
@@ -125,8 +125,11 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject obj = new JSONObject(ServerResponse);
                         if(obj.optString("status").equals("true")){
 
+
                             // If response matched then show the toast.
                             Toast.makeText(LoginActivity.this, obj.optString("message")+"", Toast.LENGTH_SHORT).show();
+
+
 
 
                             // Finish the current Login activity.
@@ -136,10 +139,16 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                             // Sending User Username to another activity using intent.
-                            intent.putExtra("username", UsernameHolder);
 
                             startActivity(intent);
                         }
+                            sessionManager = new SessionManager(getApplicationContext());
+                            sessionManager.createLoginSession(
+                                    obj.getString("id_user"),
+                                    obj.getString("username"),
+                                    obj.getString("level")
+
+                            );
 
                         } catch (JSONException e) {
                             e.printStackTrace();
