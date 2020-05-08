@@ -32,7 +32,7 @@ public class UserPresenter {
                         .subscribeWith(new DisposableObserver<UserResponse>() {
                             @Override
                             public void onNext(UserResponse UserResponse) {
-                                view.statusSuccess(UserResponse.getStatus());
+                                view.statusSuccess(UserResponse.getMessage());
                             }
 
                             @Override

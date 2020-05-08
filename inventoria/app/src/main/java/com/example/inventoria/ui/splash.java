@@ -6,6 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.inventoria.MainActivity;
 import com.example.inventoria.R;
 import com.example.inventoria.ui.daftar.DaftarActivity;
 import com.example.inventoria.ui.login.LoginActivity;
@@ -27,7 +28,7 @@ public class splash extends AppCompatActivity {
             public void run() {
 
                 //setelah loading maka akan langsung berpindah ke home activity
-                Intent intent=new Intent(splash.this, LoginActivity.class);
+                Intent intent=new Intent(splash.this, MainActivity.class);
                 startActivity(intent);
                 finish();
 

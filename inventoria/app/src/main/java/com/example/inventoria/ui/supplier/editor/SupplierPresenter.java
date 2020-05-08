@@ -32,7 +32,7 @@ public class SupplierPresenter {
                         .subscribeWith(new DisposableObserver<SupplierResponse>() {
                             @Override
                             public void onNext(SupplierResponse supplierResponse) {
-                                view.statusSuccess(supplierResponse.getStatus());
+                                view.statusSuccess(supplierResponse.getMessage());
                             }
 
                             @Override
