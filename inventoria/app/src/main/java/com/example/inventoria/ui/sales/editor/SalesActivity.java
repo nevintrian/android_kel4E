@@ -1,4 +1,4 @@
-package com.example.inventoria.ui.user.editor;
+package com.example.inventoria.ui.sales.editor;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,14 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.inventoria.R;
 import com.example.inventoria.tools.SessionManager;
+import com.example.inventoria.ui.sales.editor.SalesPresenter;
+import com.example.inventoria.ui.sales.editor.SalesView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserActivity extends AppCompatActivity implements UserView {
+public class SalesActivity extends AppCompatActivity implements SalesView {
 
-    UserPresenter presenter;
+    SalesPresenter presenter;
     ProgressDialog progressDialog;
     SessionManager session;
 
@@ -51,7 +53,6 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
     @BindView(R.id.alamat)
     EditText et_alamat;
-
     @BindView(R.id.content_simpan)
     LinearLayout content_simpan;
 
@@ -61,7 +62,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_sales);
 
         ButterKnife.bind(this);
 
@@ -69,14 +70,14 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading ...");
-        presenter = new UserPresenter(this);
+        presenter = new SalesPresenter(this);
 
         initDataIntent();
         setTextEditor();
     }
 
     @OnClick(R.id.simpan) void simpan(){
-        presenter.saveUser(
+        presenter.saveSales(
 
                 et_username.getText().toString(),
                 et_email.getText().toString(),
@@ -91,7 +92,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
     }
 
     @OnClick(R.id.update) void update() {
-        presenter.updateUser(
+        presenter.updateSales(
 
                 id_user,
                 et_username.getText().toString(),
@@ -108,7 +109,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
 
     @OnClick(R.id.hapus) void hapus() {
-        presenter.deleteUser(
+        presenter.deleteSales(
 
                 id_user
         );

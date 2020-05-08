@@ -141,7 +141,7 @@ public class SupplierFragment extends Fragment implements SupplierView{
                         int index = suppliers.size();
                         suppliers.add(new Supplier("load"));
                         adapter.notifyItemInserted(suppliers.size()-1);
-                        presenter.loadMore(Integer.toString(index));
+
 
                     }
                 });

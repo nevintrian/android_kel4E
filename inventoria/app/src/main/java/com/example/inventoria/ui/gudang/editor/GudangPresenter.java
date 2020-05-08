@@ -1,8 +1,9 @@
-package com.example.inventoria.ui.user.editor;
+package com.example.inventoria.ui.gudang.editor;
 
 import com.example.inventoria.network.ApiClient;
 import com.example.inventoria.network.ApiInterface;
 import com.example.inventoria.network.response.UserResponse;
+
 
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,22 +12,22 @@ import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class UserPresenter {
+public class GudangPresenter {
 
-    com.example.inventoria.ui.user.editor.UserView view;
+    GudangActivity view;
     CompositeDisposable disposable;
     ApiInterface apiInterface;
 
-    public UserPresenter(UserView view) {
+    public GudangPresenter(GudangActivity view) {
         this.view = view;
         disposable = new CompositeDisposable();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    void saveUser(String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String no_telp, String alamat) {
+    void saveGudang(String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String no_telp, String alamat) {
         view.showProgress();
         disposable.add(
-                apiInterface.saveUser(email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
+                apiInterface.saveGudang (email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<UserResponse>() {
@@ -49,10 +50,10 @@ public class UserPresenter {
         );
     }
 
-    void updateUser(String id_user, String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String no_telp, String alamat) {
+    void updateGudang(String id_user, String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String no_telp, String alamat) {
         view.showProgress();
         disposable.add(
-                apiInterface.updateUser(id_user, email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
+                apiInterface.updateGudang(id_user, email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableCompletableObserver(){
@@ -71,10 +72,10 @@ public class UserPresenter {
         );
     }
 
-    void deleteUser(String id_user) {
+    void deleteGudang(String id_user) {
         view.showProgress();
         disposable.add(
-                apiInterface.deleteUser(id_user)
+                apiInterface.deleteGudang(id_user)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableCompletableObserver(){

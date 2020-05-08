@@ -16,6 +16,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.inventoria.tools.SessionManager;
 
+import com.example.inventoria.ui.gudang.GudangFragment;
+import com.example.inventoria.ui.pelanggan.PelangganFragment;
+import com.example.inventoria.ui.sales.SalesFragment;
 import com.example.inventoria.ui.supplier.SupplierFragment;
 import com.example.inventoria.ui.user.UserFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -84,6 +87,21 @@ public class MainActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.mainFrame, new UserFragment())
                     .commit();
+       } else if (id == R.id.nav_gudang) {
+           getSupportFragmentManager()
+                   .beginTransaction()
+                   .replace(R.id.mainFrame, new GudangFragment())
+                   .commit();
+       } else if (id == R.id.nav_sales) {
+           getSupportFragmentManager()
+                   .beginTransaction()
+                   .replace(R.id.mainFrame, new SalesFragment())
+                   .commit();
+       } else if (id == R.id.nav_pelanggan) {
+           getSupportFragmentManager()
+                   .beginTransaction()
+                   .replace(R.id.mainFrame, new PelangganFragment())
+                   .commit();
         } else if (id == R.id.nav_supplier) {
             getSupportFragmentManager()
                     .beginTransaction()

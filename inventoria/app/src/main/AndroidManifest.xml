@@ -37,6 +37,12 @@
         </activity>
         <activity android:name=".ui.supplier.editor.SupplierActivity">
         </activity>
+        <activity android:name=".ui.gudang.editor.GudangActivity">
+        </activity>
+        <activity android:name=".ui.sales.editor.SalesActivity">
+        </activity>
+        <activity android:name=".ui.pelanggan.editor.PelangganActivity">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

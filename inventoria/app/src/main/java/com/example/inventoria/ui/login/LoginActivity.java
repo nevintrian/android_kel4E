@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //String ServerResponse = null ;
 
-    String TempServerResponseMatchedValue = "Data Matched" ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

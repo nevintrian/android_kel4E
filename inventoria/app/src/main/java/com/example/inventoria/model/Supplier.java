@@ -18,9 +18,7 @@ public class Supplier {
     @SerializedName("alamat")
     String alamat;
 
-    public Supplier(String alamat) {
-        this.alamat = alamat;
-    }
+    public Supplier(String alamat) { this.alamat = alamat; }
 
     public String getId_supplier() { return id_supplier; }
 

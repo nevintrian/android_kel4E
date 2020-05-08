@@ -27,13 +27,13 @@ public class UserPresenter {
     public void getUsers() {
         view.showProgress();
         disposable.add(
-                apiInterface.getUsers("")
+                apiInterface.getUsers()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<UserResponse>(){
                             @Override
                             public void onNext(UserResponse userResponse) {
-                                if (userResponse.getStatus().equals("success")) {
+                                if (userResponse.getStatus().equals("true")) {
                                     view.statusSuccess(userResponse);
                                 } else {
                                     view.statusError(userResponse.getStatus());
@@ -54,15 +54,15 @@ public class UserPresenter {
         );
     }
 
-    public void loadMore(String page) {
+    public void loadMore() {
         disposable.add(
-                apiInterface.getUsers(page)
+                apiInterface.getUsers()
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableObserver<UserResponse>() {
                                 @Override
                                 public void onNext(UserResponse userResponse) {
-                                    if (userResponse.getStatus().equals("success")) {
+                                    if (userResponse.getStatus().equals("true")) {
                                         view.loadMore(userResponse);
                                     } else {
 //                                        view.statusError(userResponse.getStatus());

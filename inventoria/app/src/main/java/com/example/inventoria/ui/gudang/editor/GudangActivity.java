@@ -1,4 +1,4 @@
-package com.example.inventoria.ui.user.editor;
+package com.example.inventoria.ui.gudang.editor;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,14 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.inventoria.R;
 import com.example.inventoria.tools.SessionManager;
+import com.example.inventoria.ui.gudang.editor.GudangPresenter;
+import com.example.inventoria.ui.gudang.editor.GudangView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserActivity extends AppCompatActivity implements UserView {
+public class GudangActivity extends AppCompatActivity implements GudangView {
 
-    UserPresenter presenter;
+    GudangPresenter presenter;
     ProgressDialog progressDialog;
     SessionManager session;
 
@@ -61,7 +63,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_gudang);
 
         ButterKnife.bind(this);
 
@@ -69,15 +71,14 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading ...");
-        presenter = new UserPresenter(this);
+        presenter = new GudangPresenter(this);
 
         initDataIntent();
         setTextEditor();
     }
 
     @OnClick(R.id.simpan) void simpan(){
-        presenter.saveUser(
-
+        presenter.saveGudang(
                 et_username.getText().toString(),
                 et_email.getText().toString(),
                 et_password.getText().toString(),
@@ -91,7 +92,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
     }
 
     @OnClick(R.id.update) void update() {
-        presenter.updateUser(
+        presenter.updateGudang(
 
                 id_user,
                 et_username.getText().toString(),
@@ -108,7 +109,7 @@ public class UserActivity extends AppCompatActivity implements UserView {
 
 
     @OnClick(R.id.hapus) void hapus() {
-        presenter.deleteUser(
+        presenter.deleteGudang(
 
                 id_user
         );

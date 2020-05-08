@@ -1,4 +1,4 @@
-package com.example.inventoria.ui.user;
+package com.example.inventoria.ui.gudang;
 
 
 import android.content.Intent;
@@ -19,6 +19,10 @@ import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.network.response.UserResponse;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+import com.example.inventoria.ui.gudang.editor.GudangActivity;
+import com.example.inventoria.ui.user.UserAdapter;
+import com.example.inventoria.ui.user.UserPresenter;
+import com.example.inventoria.ui.user.UserView;
 import com.example.inventoria.ui.user.editor.UserActivity;
 
 
@@ -34,12 +38,12 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserFragment extends Fragment implements UserView {
+public class GudangFragment extends Fragment implements GudangView {
 
-    UserPresenter presenter;
+    GudangPresenter presenter;
     SessionManager session;
-    com.example.inventoria.ui.user.UserAdapter adapter;
-    List<User> users;
+    com.example.inventoria.ui.gudang.GudangAdapter adapter;
+    List<User> gudangs;
 
     private static final int REQUEST_ADD = 1;
     private static final int REQUEST_UPDATE = 1;
@@ -51,7 +55,7 @@ public class UserFragment extends Fragment implements UserView {
     SwipeRefreshLayout swipe;
 
 
-    public UserFragment() {
+    public GudangFragment() {
         // Required empty public constructor
     }
 
@@ -60,10 +64,10 @@ public class UserFragment extends Fragment implements UserView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View x = inflater.inflate(R.layout.fragment_user, container, false);
+        View x = inflater.inflate(R.layout.fragment_gudang, container, false);
         session = new SessionManager(getActivity());
         ButterKnife.bind(this, x);
-        getActivity().setTitle("Data Admin");
+        getActivity().setTitle("Data Gudang");
 
         onSetRecyclerView();
         onClickRecylerView();
@@ -71,16 +75,16 @@ public class UserFragment extends Fragment implements UserView {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getUsers();
+                presenter.getGudangs();
             }
         });
-        presenter.getUsers();
+        presenter.getGudangs();
 
         return x;
     }
 
     @OnClick(R.id.userFab) void editor() {
-        Intent intent = new Intent(getActivity(), UserActivity.class);
+        Intent intent = new Intent(getActivity(), GudangActivity.class);
         startActivityForResult(intent, REQUEST_ADD);
     }
 
@@ -96,17 +100,16 @@ public class UserFragment extends Fragment implements UserView {
 
     @Override
     public void statusSuccess(UserResponse userResponse) {
-        users.removeAll(users);
-        users.addAll(userResponse.getData());
+        gudangs.removeAll(gudangs);
+        gudangs.addAll(userResponse.getData());
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void loadMore(UserResponse userResponse) {
-        users.remove(users.size()-1);
+        gudangs.remove(gudangs.size()-1);
         List<User> result = userResponse.getData();
-        if (result.size() > 0) {
-            users.addAll(result);
+        if (result.size() > 0) { gudangs.addAll(result);
         } else {
             adapter.setMoreDataAvailable(false);
         }
@@ -122,25 +125,26 @@ public class UserFragment extends Fragment implements UserView {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_ADD && resultCode == RESULT_OK) {
-            presenter.getUsers();
+            presenter.getGudangs();
         } else if (requestCode == REQUEST_UPDATE && resultCode == RESULT_OK) {
-            presenter.getUsers();
+            presenter.getGudangs();
         }
     }
 
     void onSetRecyclerView() {
-        users = new ArrayList<>();
-        presenter = new UserPresenter(this);
-        adapter = new com.example.inventoria.ui.user.UserAdapter(users);
-        adapter.setLoadMoreListener(new UserAdapter.OnLoadMoreListener() {
+        gudangs = new ArrayList<>();
+        presenter = new GudangPresenter(this);
+        adapter = new com.example.inventoria.ui.gudang.GudangAdapter(gudangs);
+        adapter.setLoadMoreListener(new GudangAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        int index = users.size();
-                        users.add(new User("load"));
-                        adapter.notifyItemInserted(users.size()-1);
+                        int index = gudangs.size();
+                        gudangs.add(new User("load"));
+                        adapter.notifyItemInserted(gudangs.size()-1);
+
 
                     }
                 });
@@ -157,9 +161,9 @@ public class UserFragment extends Fragment implements UserView {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        User user = adapter.getUser(position);
+                        User user = adapter.getGudang(position);
 
-                        Intent intent = new Intent(getActivity(), UserActivity.class);
+                        Intent intent = new Intent(getActivity(), GudangActivity.class);
 
                         intent.putExtra("id_user", user.getId_user());
                         intent.putExtra("email", user.getEmail());
