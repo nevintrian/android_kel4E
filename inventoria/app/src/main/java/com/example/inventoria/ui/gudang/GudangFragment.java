@@ -141,9 +141,7 @@ public class GudangFragment extends Fragment implements GudangView {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        int index = gudangs.size();
-                        gudangs.add(new User("load"));
-                        adapter.notifyItemInserted(gudangs.size()-1);
+
 
 
                     }

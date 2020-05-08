@@ -142,9 +142,7 @@ public class SalesFragment extends Fragment implements SalesView {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        int index = saless.size();
-                        saless.add(new User("load"));
-                        adapter.notifyItemInserted(saless.size()-1);
+
 
                     }
                 });

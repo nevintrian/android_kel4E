@@ -55,33 +55,7 @@ public class PelangganPresenter {
         );
     }
 
-    public void loadMore() {
-        disposable.add(
-                apiInterface.getPelanggans()
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(new DisposableObserver<UserResponse>() {
-                                @Override
-                                public void onNext(UserResponse userResponse) {
-                                    if (userResponse.getStatus().equals("true")) {
-                                        view.loadMore(userResponse);
-                                    } else {
-//                                        view.statusError(userResponse.getStatus());
-                                    }
-                                }
 
-                                @Override
-                                public void onError(Throwable e) {
-                                    Log.e("UserPresenter", "onError: " + e.getLocalizedMessage());
-                                }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
-                            })
-        );
-    }
 
     public void detachView() {
         disposable.dispose();

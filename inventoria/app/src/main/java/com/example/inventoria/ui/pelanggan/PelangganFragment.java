@@ -142,9 +142,7 @@ public class PelangganFragment extends Fragment implements PelangganView {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        int index = pelanggans.size();
-                        pelanggans.add(new User("load"));
-                        adapter.notifyItemInserted(pelanggans.size()-1);
+
 
                     }
                 });

@@ -54,33 +54,6 @@ public class SupplierPresenter {
         );
     }
 
-    public void loadMore() {
-        disposable.add(
-                apiInterface.getSuppliers()
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(new DisposableObserver<SupplierResponse>() {
-                                @Override
-                                public void onNext(SupplierResponse supplierResponse) {
-                                    if (supplierResponse.getStatus().equals("true")) {
-                                        view.loadMore(supplierResponse);
-                                    } else {
-//                                        view.statusError(supplierResponse.getStatus());
-                                    }
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    Log.e("SupplierPresenter", "onError: " + e.getLocalizedMessage());
-                                }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
-                            })
-        );
-    }
 
     public void detachView() {
         disposable.dispose();

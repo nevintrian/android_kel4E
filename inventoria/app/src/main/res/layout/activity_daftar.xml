@@ -109,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="30dp"
+                android:paddingTop="60dp"
                 android:onClick="onClick"
                 android:clickable="true"
                 android:text="Sudah punya akun?  Login disini" />

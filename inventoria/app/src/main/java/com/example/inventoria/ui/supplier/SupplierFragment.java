@@ -138,9 +138,7 @@ public class SupplierFragment extends Fragment implements SupplierView{
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        int index = suppliers.size();
-                        suppliers.add(new Supplier("load"));
-                        adapter.notifyItemInserted(suppliers.size()-1);
+
 
 
                     }

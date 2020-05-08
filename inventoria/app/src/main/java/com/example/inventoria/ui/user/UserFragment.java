@@ -138,9 +138,7 @@ public class UserFragment extends Fragment implements UserView {
                 recyclerView.post(new Runnable() {
                     @Override
                     public void run() {
-                        int index = users.size();
-                        users.add(new User("load"));
-                        adapter.notifyItemInserted(users.size()-1);
+
 
                     }
                 });
