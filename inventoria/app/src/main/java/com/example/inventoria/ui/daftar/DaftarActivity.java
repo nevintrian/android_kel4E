@@ -59,7 +59,7 @@ public class DaftarActivity extends AppCompatActivity {
     // Storing server url into String variable.
 
 
-    String HttpUrl = Url.URL + "daftar/";
+    String HttpUrl = Url.URL + "api/daftar/";
 
     Boolean CheckEditText ;
 

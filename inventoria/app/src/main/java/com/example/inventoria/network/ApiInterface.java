@@ -1,6 +1,7 @@
 package com.example.inventoria.network;
 
 
+import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.network.response.SupplierResponse;
 import com.example.inventoria.network.response.UserResponse;
 
@@ -220,4 +221,34 @@ public interface ApiInterface {
             @Path("id_user") String id_user);
 
 
+
+
+    //Barang CRUD
+    @GET("barang")
+    Observable<BarangResponse> getBarang();
+
+
+
+    @Multipart
+    @POST("barang")
+    Observable<BarangResponse> saveBarang(
+                                          @Part MultipartBody.Part foto_barang,
+                                          @Part("nama_barang") RequestBody nama_barang,
+                                          @Part("kemasan") RequestBody kemasan,
+                                          @Part("stok") RequestBody stok,
+                                          @Part("harga") RequestBody harga);
+
+    @Multipart
+    @PUT("barang/{id_barang}")
+    Completable updateBarang(
+                             @Path("id_barang") String id_barang,
+                             @Part MultipartBody.Part foto_barang,
+                             @Part("nama_barang") RequestBody nama_barang,
+                             @Part("kemasan") RequestBody kemasan,
+                             @Part("stok") RequestBody stok,
+                             @Part("harga") RequestBody harga);
+
+    @DELETE("barang/{id_barang}")
+    Completable deleteBarang(
+                             @Path("id_barang") String id_barang);
 }

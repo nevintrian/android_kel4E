@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String url = Url.URL;
+    private static final String url = Url.URL + "api/";
 
     private static Retrofit retrofit;
 

@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     // Storing server url into String variable.
-    String HttpUrl = Url.URL + "login/";
+    String HttpUrl = Url.URL + "api/login/";
 
     Boolean CheckEditText;
 

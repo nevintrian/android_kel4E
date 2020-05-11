@@ -43,6 +43,8 @@
         </activity>
         <activity android:name=".ui.pelanggan.editor.PelangganActivity">
         </activity>
+        <activity android:name=".ui.barang.editor.BarangActivity">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

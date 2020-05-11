@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.inventoria.tools.SessionManager;
 
+import com.example.inventoria.ui.barang.BarangFragment;
 import com.example.inventoria.ui.gudang.GudangFragment;
 import com.example.inventoria.ui.pelanggan.PelangganFragment;
 import com.example.inventoria.ui.sales.SalesFragment;
@@ -107,6 +108,11 @@ public class MainActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.mainFrame, new SupplierFragment())
                     .commit();
+       } else if (id == R.id.nav_barang) {
+           getSupportFragmentManager()
+                   .beginTransaction()
+                   .replace(R.id.mainFrame, new BarangFragment())
+                   .commit();
         } else if (id == R.id.nav_logout) {
             sessionManager.logoutUser();
         }
