@@ -51,7 +51,7 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     BarangPresenter presenter;
     Uri uri;
 
-    String id_barang, nama_barang, kemasan, stok, harga, terjual, foto_barang;
+    String id_barang, id_supplier, nama_barang, kemasan, merk, jenis, stok, harga, terjual, foto_barang;
     String currentPhotoPath;
     String selectImagePath;
     static final String folder = "AndroidInventory";
@@ -60,15 +60,22 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     static final int REQUEST_CAMERA = 2;
 
 
-
+    @BindView(R.id.id_supplier)
+    EditText et_id_supplier;
     @BindView(R.id.nama_barang)
     EditText et_nama_barang;
     @BindView(R.id.kemasan)
     EditText et_kemasan;
+    @BindView(R.id.merk)
+    EditText et_merk;
+    @BindView(R.id.jenis)
+    EditText et_jenis;
     @BindView(R.id.stok)
     EditText et_stok;
     @BindView(R.id.harga)
     EditText et_harga;
+    @BindView(R.id.terjual)
+    EditText et_terjual;
     @BindView(R.id.foto_barang)
     ImageView iv_foto_barang;
     @BindView(R.id.content_simpan)
@@ -127,23 +134,34 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
         RequestBody foto_barangBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part foto_barangPart = MultipartBody.Part.createFormData("foto_barang", file.getName
                 (), foto_barangBody);
-
+        RequestBody id_supplierBody = RequestBody.create(MediaType.parse("text/plain"), et_id_supplier.getText()
+                .toString());
         RequestBody nama_barangBody = RequestBody.create(MediaType.parse("text/plain"), et_nama_barang.getText()
                 .toString());
         RequestBody kemasanBody = RequestBody.create(MediaType.parse("text/plain"), et_kemasan.getText()
+                .toString());
+        RequestBody merkBody = RequestBody.create(MediaType.parse("text/plain"), et_merk.getText()
+                .toString());
+        RequestBody jenisBody = RequestBody.create(MediaType.parse("text/plain"), et_jenis.getText()
                 .toString());
         RequestBody stokBody = RequestBody.create(MediaType.parse("text/plain"), et_stok.getText()
                 .toString());
         RequestBody hargaBody = RequestBody.create(MediaType.parse("text/plain"), et_harga.getText()
                 .toString());
+        RequestBody terjualBody = RequestBody.create(MediaType.parse("text/plain"), et_terjual.getText()
+                .toString());
 
         presenter.saveBarang(
 
                 foto_barangPart,
+                id_supplierBody,
                 nama_barangBody,
                 kemasanBody,
+                merkBody,
+                jenisBody,
                 stokBody,
-                hargaBody
+                hargaBody,
+                terjualBody
 
         );
     }
@@ -160,27 +178,38 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
             foto_barangPart = MultipartBody.Part.createFormData("foto_barang", file.getName
                     (), foto_barangBody);
         }
-        
 
+        RequestBody id_supplierBody = RequestBody.create(MediaType.parse("text/plain"), et_id_supplier.getText()
+                .toString());
         RequestBody nama_barangBody = RequestBody.create(MediaType.parse("text/plain"), et_nama_barang.getText()
                 .toString());
         RequestBody kemasanBody = RequestBody.create(MediaType.parse("text/plain"), et_kemasan.getText()
+                .toString());
+        RequestBody merkBody = RequestBody.create(MediaType.parse("text/plain"), et_merk.getText()
+                .toString());
+        RequestBody jenisBody = RequestBody.create(MediaType.parse("text/plain"), et_jenis.getText()
                 .toString());
         RequestBody stokBody = RequestBody.create(MediaType.parse("text/plain"), et_stok.getText()
                 .toString());
         RequestBody hargaBody = RequestBody.create(MediaType.parse("text/plain"), et_harga.getText()
                 .toString());
+        RequestBody terjualBody = RequestBody.create(MediaType.parse("text/plain"), et_terjual.getText()
+                .toString());
+
 
 
         presenter.updateBarang(
 
                 id_barang,
                 foto_barangPart,
-
+                id_supplierBody,
                 nama_barangBody,
                 kemasanBody,
+                merkBody,
+                jenisBody,
                 stokBody,
-                hargaBody
+                hargaBody,
+                terjualBody
 
         );
 
@@ -237,8 +266,11 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     private void initDataIntent() {
         Intent intent= getIntent();
         id_barang = intent.getStringExtra("id_barang");
+        id_supplier = intent.getStringExtra("id_supplier");
         nama_barang = intent.getStringExtra("nama_barang");
         kemasan = intent.getStringExtra("kemasan");
+        merk = intent.getStringExtra("merk");
+        jenis = intent.getStringExtra("jenis");
         stok = intent.getStringExtra("stok");
         harga = intent.getStringExtra("harga");
         terjual = intent.getStringExtra("terjual");
@@ -250,10 +282,14 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     private void setTextEditor() {
         if (id_barang != null) {
             getSupportActionBar().setTitle("Update data");
+            et_id_supplier.setText(id_supplier);
             et_nama_barang.setText(nama_barang);
             et_kemasan.setText(kemasan);
+            et_merk.setText(merk);
+            et_jenis.setText(jenis);
             et_stok.setText(stok);
             et_harga.setText(harga);
+            et_terjual.setText(terjual);
 
             String URL = Url.URL + "image/barang/";
 

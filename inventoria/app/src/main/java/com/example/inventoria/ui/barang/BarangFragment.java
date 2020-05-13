@@ -108,8 +108,11 @@ public class BarangFragment extends Fragment implements BarangView {
                         Intent intent = new Intent(getActivity(), BarangActivity.class);
 
                         intent.putExtra("id_barang", barang.getId_barang());
+                        intent.putExtra("id_supplier", barang.getId_supplier());
                         intent.putExtra("nama_barang", barang.getNama_barang());
                         intent.putExtra("kemasan", barang.getKemasan());
+                        intent.putExtra("merk", barang.getMerk());
+                        intent.putExtra("jenis", barang.getJenis());
                         intent.putExtra("stok", barang.getStok());
                         intent.putExtra("harga", barang.getHarga());
                         intent.putExtra("terjual", barang.getTerjual());

@@ -25,17 +25,17 @@ public class BarangPresenter {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    void saveBarang( MultipartBody.Part foto_barang, RequestBody nama_barang, RequestBody kemasan, RequestBody
-            stok, RequestBody harga) {
+    void saveBarang( MultipartBody.Part foto_barang, RequestBody id_supplier, RequestBody nama_barang, RequestBody kemasan, RequestBody merk, RequestBody jenis, RequestBody
+            stok, RequestBody harga, RequestBody terjual) {
         view.showProgress();
         disposable.add(
-            apiInterface.saveBarang(foto_barang, nama_barang, kemasan, stok, harga)
+            apiInterface.saveBarang(foto_barang, id_supplier, nama_barang, kemasan, merk, jenis, stok, harga, terjual)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<BarangResponse>() {
                     @Override
                     public void onNext(BarangResponse barangResponse) {
-                        view.statusSuccess(barangResponse.getStatus());
+                        view.statusSuccess(barangResponse.getMessage());
                     }
 
                     @Override
@@ -51,11 +51,11 @@ public class BarangPresenter {
         );
     }
 
-    void updateBarang( String id_barang, MultipartBody.Part foto_barang,
-                      RequestBody nama_barang, RequestBody kemasan, RequestBody stok, RequestBody harga) {
+    void updateBarang( String id_barang, MultipartBody.Part foto_barang, RequestBody id_supplier, RequestBody nama_barang, RequestBody kemasan, RequestBody merk, RequestBody jenis, RequestBody
+            stok, RequestBody harga, RequestBody terjual) {
         view.showProgress();
         disposable.add(
-                apiInterface.updateBarang(id_barang, foto_barang, nama_barang, kemasan, stok, harga)
+                apiInterface.updateBarang(id_barang, foto_barang, id_supplier, nama_barang, kemasan, merk, jenis, stok, harga, terjual)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableCompletableObserver(){
@@ -83,7 +83,7 @@ public class BarangPresenter {
                             @Override
                             public void onComplete() {
                                 view.hideProgress();
-                                view.statusSuccess("berhasil update");
+                                view.statusSuccess("berhasil delete");
                             }
 
                             @Override

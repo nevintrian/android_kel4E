@@ -233,20 +233,28 @@ public interface ApiInterface {
     @POST("barang")
     Observable<BarangResponse> saveBarang(
                                           @Part MultipartBody.Part foto_barang,
+                                          @Part("id_supplier") RequestBody id_supplier,
                                           @Part("nama_barang") RequestBody nama_barang,
                                           @Part("kemasan") RequestBody kemasan,
+                                          @Part("merk") RequestBody merk,
+                                          @Part("jenis") RequestBody jenis,
                                           @Part("stok") RequestBody stok,
-                                          @Part("harga") RequestBody harga);
+                                          @Part("harga") RequestBody harga,
+                                          @Part("terjual") RequestBody terjual);
 
     @Multipart
-    @PUT("barang/{id_barang}")
+    @POST("barang/update/{id_barang}")
     Completable updateBarang(
                              @Path("id_barang") String id_barang,
                              @Part MultipartBody.Part foto_barang,
+                             @Part("id_supplier") RequestBody id_supplier,
                              @Part("nama_barang") RequestBody nama_barang,
                              @Part("kemasan") RequestBody kemasan,
+                             @Part("merk") RequestBody merk,
+                             @Part("jenis") RequestBody jenis,
                              @Part("stok") RequestBody stok,
-                             @Part("harga") RequestBody harga);
+                             @Part("harga") RequestBody harga,
+                             @Part("terjual") RequestBody terjual);
 
     @DELETE("barang/{id_barang}")
     Completable deleteBarang(

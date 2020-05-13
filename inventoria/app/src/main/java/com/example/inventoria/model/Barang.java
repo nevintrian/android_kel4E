@@ -9,11 +9,20 @@ public class Barang {
     @SerializedName("id_barang")
     String id_barang;
     @Expose
+    @SerializedName("id_supplier")
+    String id_supplier;
+    @Expose
     @SerializedName("nama_barang")
     String nama_barang;
     @Expose
     @SerializedName("kemasan")
     String kemasan;
+    @Expose
+    @SerializedName("merk")
+    String merk;
+    @Expose
+    @SerializedName("jenis")
+    String jenis;
     @Expose
     @SerializedName("stok")
     String stok;
@@ -35,6 +44,13 @@ public class Barang {
         this.id_barang = id_barang;
     }
 
+    public String getId_supplier() {
+        return id_supplier;
+    }
+
+    public void setId_supplier(String id_supplier) {
+        this.id_supplier = id_supplier;
+    }
 
     public String getNama_barang() {
         return nama_barang;
@@ -47,6 +63,14 @@ public class Barang {
     public String getKemasan() { return kemasan; }
 
     public void setKemasan(String kemasan) { this.kemasan = kemasan; }
+
+    public String getMerk() { return merk; }
+
+    public void setMerk(String merk) { this.merk = merk; }
+
+    public String getJenis() { return jenis; }
+
+    public void setJenis(String jenis) { this.jenis = jenis; }
 
     public String getStok() {
         return stok;
