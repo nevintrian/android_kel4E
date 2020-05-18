@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.barang.editor.BarangActivity">
+    tools:context=".ui.home.editor.HomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,19 +15,11 @@
 
         <ImageView
             android:id="@+id/foto_barang"
+
             android:background="#16000000"
             android:layout_width="match_parent"
             android:layout_height="180dp"/>
 
-        <Button
-            android:id="@+id/select"
-            android:text="Select Image"
-            android:layout_gravity="right"
-            android:textColor="#fff"
-            android:background="@drawable/roundedcorner"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -35,10 +27,10 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/id_supplier"
-                android:hint="Id Supplier"
 
                 android:enabled="false"
+                android:id="@+id/id_supplier"
+                android:hint="Id Supplier"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -49,6 +41,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/nama_barang"
                 android:hint="Nama Barang"
                 android:layout_width="match_parent"
@@ -61,6 +54,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/kemasan"
                 android:hint="Kemasan"
                 android:layout_width="match_parent"
@@ -73,6 +67,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/merk"
                 android:hint="merk"
                 android:layout_width="match_parent"
@@ -85,6 +80,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/jenis"
                 android:hint="jenis"
                 android:layout_width="match_parent"
@@ -97,6 +93,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/stok"
                 android:hint="Stok Barang"
                 android:inputType="number"
@@ -110,6 +107,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/harga"
                 android:hint="Harga Barang"
                 android:inputType="number"
@@ -122,7 +120,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
             <EditText
+                android:enabled="false"
                 android:id="@+id/terjual"
                 android:hint="Terjual"
                 android:inputType="number"
@@ -165,23 +165,16 @@
             android:layout_height="0dip"
             android:layout_marginBottom="10dp">
 
-            <Button
-                android:id="@+id/hapus"
-                android:text="Hapus"
-                android:layout_height="wrap_content"
-                android:layout_weight=".3"
-                android:layout_width="0dip"
-                android:textColor="#fff"
-                android:background="@drawable/roundedcorner1"/>
+
 
             <Button
                 android:id="@+id/update"
-                android:text="Update"
+                android:text="Beli"
                 android:layout_height="wrap_content"
-                android:layout_weight=".7"
-                android:layout_width="0dip"
+                android:layout_weight="1"
                 android:textColor="#fff"
-                android:background="@drawable/roundedcorner"/>
+                android:background="@drawable/roundedcorner"
+                android:layout_width="0dip" />
 
         </LinearLayout>
 
