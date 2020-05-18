@@ -17,8 +17,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.inventoria.tools.SessionManager;
 
 import com.example.inventoria.ui.barang.BarangFragment;
+import com.example.inventoria.ui.daftar.DaftarActivity;
 import com.example.inventoria.ui.gudang.GudangFragment;
+import com.example.inventoria.ui.login.LoginActivity;
 import com.example.inventoria.ui.pelanggan.PelangganFragment;
+import com.example.inventoria.ui.profil.ProfilActivity;
+
 import com.example.inventoria.ui.sales.SalesFragment;
 import com.example.inventoria.ui.supplier.SupplierFragment;
 import com.example.inventoria.ui.user.UserFragment;
@@ -113,6 +117,15 @@ public class MainActivity extends AppCompatActivity
                    .beginTransaction()
                    .replace(R.id.mainFrame, new BarangFragment())
                    .commit();
+       } else if (id == R.id.nav_profil) {
+
+           Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
+
+           // Sending User Email to another activity using intent.
+
+
+           startActivity(intent);
+
         } else if (id == R.id.nav_logout) {
             sessionManager.logoutUser();
         }

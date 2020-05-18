@@ -10,6 +10,7 @@ import com.example.inventoria.MainActivity;
 import com.example.inventoria.R;
 import com.example.inventoria.ui.daftar.DaftarActivity;
 import com.example.inventoria.ui.login.LoginActivity;
+import com.example.inventoria.ui.profil.ProfilActivity;
 
 
 public class splash extends AppCompatActivity {

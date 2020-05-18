@@ -145,8 +145,16 @@ public class LoginActivity extends AppCompatActivity {
                             sessionManager = new SessionManager(getApplicationContext());
                             sessionManager.createLoginSession(
                                     obj.getString("id_user"),
+                                    obj.getString("email"),
                                     obj.getString("username"),
-                                    obj.getString("level")
+                                    obj.getString("password"),
+                                    obj.getString("level"),
+                                    obj.getString("nama"),
+                                    obj.getString("tgl_lahir"),
+                                    obj.getString("jenis_kelamin"),
+                                    obj.getString("alamat"),
+                                    obj.getString("no_telp")
+
 
                             );
 
