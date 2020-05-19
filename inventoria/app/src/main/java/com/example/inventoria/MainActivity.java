@@ -24,6 +24,7 @@ import com.example.inventoria.ui.login.LoginActivity;
 import com.example.inventoria.ui.pelanggan.PelangganFragment;
 import com.example.inventoria.ui.profil.ProfilActivity;
 
+import com.example.inventoria.ui.profil.ProfilFragment;
 import com.example.inventoria.ui.sales.SalesFragment;
 import com.example.inventoria.ui.supplier.SupplierFragment;
 import com.example.inventoria.ui.user.UserFragment;
@@ -124,14 +125,10 @@ public class MainActivity extends AppCompatActivity
                    .replace(R.id.mainFrame, new UserFragment())
                    .commit();
        } else if (id == R.id.nav_profil) {
-
-           Intent intent = new Intent(MainActivity.this, ProfilActivity.class);
-
-           // Sending User Email to another activity using intent.
-
-
-           startActivity(intent);
-
+           getSupportFragmentManager()
+                   .beginTransaction()
+                   .replace(R.id.mainFrame, new ProfilFragment())
+                   .commit();
         } else if (id == R.id.nav_logout) {
             sessionManager.logoutUser();
         }
