@@ -259,4 +259,7 @@ public interface ApiInterface {
     @DELETE("barang/{id_barang}")
     Completable deleteBarang(
                              @Path("id_barang") String id_barang);
+
+
+
 }

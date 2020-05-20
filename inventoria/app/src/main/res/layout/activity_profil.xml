@@ -1,23 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".ui.profil.ProfilActivity">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+
     <ImageView
         android:id="@+id/foto"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_below="@+id/login_title"
-        android:layout_marginLeft="150dp"
-        android:layout_marginRight="150dp"
-        android:elevation="4dp"
-        android:background="@drawable/background_profile1"
-        android:src="@drawable/pp" />
+        android:background="#16000000"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"/>
+
+
+    <Button
+        android:id="@+id/select"
+        android:text="Select Image"
+        android:layout_gravity="right"
+        android:textColor="#fff"
+        android:background="@drawable/roundedcorner"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/id_user"
+            android:enabled="false"
+            android:hint="Id user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -151,6 +178,37 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/content_update"
+        android:visibility="gone"
+        android:gravity="center|bottom"
+        android:layout_weight="1"
+        android:weightSum="1.0"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginBottom="10dp">
 
+        <Button
+            android:id="@+id/hapus"
+            android:text="Hapus"
+            android:layout_height="wrap_content"
+            android:layout_weight=".3"
+            android:layout_width="0dip"
+            android:textColor="#fff"
+            android:background="@drawable/roundedcorner1"/>
+
+        <Button
+            android:id="@+id/update"
+            android:text="Update"
+            android:layout_height="wrap_content"
+            android:layout_weight=".7"
+            android:layout_width="0dip"
+            android:textColor="#fff"
+            android:background="@drawable/roundedcorner"/>
+
+    </LinearLayout>
 
 </LinearLayout>
+
+</ScrollView>

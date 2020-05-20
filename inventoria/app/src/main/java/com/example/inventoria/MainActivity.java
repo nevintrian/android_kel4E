@@ -1,10 +1,13 @@
 package com.example.inventoria;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,8 +17,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.inventoria.tools.SessionManager;
 
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.BarangFragment;
 import com.example.inventoria.ui.daftar.DaftarActivity;
 import com.example.inventoria.ui.gudang.GudangFragment;
@@ -29,6 +34,8 @@ import com.example.inventoria.ui.sales.SalesFragment;
 import com.example.inventoria.ui.supplier.SupplierFragment;
 import com.example.inventoria.ui.user.UserFragment;
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -64,7 +71,14 @@ public class MainActivity extends AppCompatActivity
         tv_username.setText(sessionManager.getKeyUsername());
 
         TextView tv_level = (TextView) headerView.findViewById(R.id.level);
-        tv_level.setText(sessionManager.getKeyLevel());
+        tv_level.setText(sessionManager.getKeyFoto());
+
+
+        String link = Url.URL + "image/user/";
+        Glide.with(this).load(link + sessionManager.getKeyFoto()).into((ImageView) headerView.findViewById(R.id.foto));
+
+
+
 
 
 

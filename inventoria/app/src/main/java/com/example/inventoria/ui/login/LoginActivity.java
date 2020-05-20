@@ -153,7 +153,8 @@ public class LoginActivity extends AppCompatActivity {
                                     obj.getString("tgl_lahir"),
                                     obj.getString("jenis_kelamin"),
                                     obj.getString("alamat"),
-                                    obj.getString("no_telp")
+                                    obj.getString("no_telp"),
+                                    obj.getString("foto")
 
 
                             );

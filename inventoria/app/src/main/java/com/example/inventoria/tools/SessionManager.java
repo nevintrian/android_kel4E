@@ -40,6 +40,7 @@ public class SessionManager {
     public static final String KEY_JENIS_KELAMIN = "jenis_kelamin";
     public static final String KEY_ALAMAT = "alamat";
     public static final String KEY_NO_TELP = "no_telp";
+    public static final String KEY_FOTO = "foto";
     // Id(make variable public to access from outside)
     public static final String KEY_ID = "id_user";
 
@@ -57,7 +58,7 @@ public class SessionManager {
      * Create login session
      * @param id_user
      */
-    public void createLoginSession(String id_user, String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String alamat, String no_telp) {
+    public void createLoginSession(String id_user, String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String alamat, String no_telp, String foto) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -71,6 +72,7 @@ public class SessionManager {
         editor.putString(KEY_JENIS_KELAMIN, jenis_kelamin);
         editor.putString(KEY_ALAMAT, alamat);
         editor.putString(KEY_NO_TELP, no_telp);
+        editor.putString(KEY_FOTO, foto);
 
 
         // commit changes
@@ -151,6 +153,7 @@ public class SessionManager {
         return pref.getString(KEY_ALAMAT, null);
     }
     public String getKeyNo_telp() { return pref.getString(KEY_NO_TELP, null); }
+    public String getKeyFoto() { return pref.getString(KEY_FOTO, null); }
 
 
 
