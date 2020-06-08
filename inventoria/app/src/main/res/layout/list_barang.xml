@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/foto_barang"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:background="#16000000"/>
 
     <LinearLayout
@@ -29,7 +29,41 @@
             android:textSize="14dp"/>
 
 
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:text="Jenis : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/jenis"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="#727272"
+                android:textSize="14dp" />
+
+            <TextView
+                android:text="Merk : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/merk"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="#727272"
+                android:textSize="14dp" />
+
+
+
+        </LinearLayout>
         <LinearLayout
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
@@ -43,20 +77,20 @@
 
             <TextView
                 android:id="@+id/stok"
-                android:layout_width="143dp"
+                android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:text="12"
                 android:textColor="#727272"
                 android:textSize="14dp" />
 
             <TextView
-                android:text="Terjual : "
+                android:text="Kemasan : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/terjual"
-                android:layout_width="75dp"
+                android:id="@+id/kemasan"
+                android:layout_width="85dp"
                 android:layout_height="wrap_content"
                 android:text="12"
                 android:textColor="#727272"
@@ -79,13 +113,24 @@
 
             <TextView
                 android:id="@+id/harga"
-                android:layout_width="108dp"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:text="12"
                 android:textColor="#727272"
                 android:textSize="14dp" />
 
+            <TextView
+                android:text="Terjual : "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
+            <TextView
+                android:id="@+id/terjual"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="#727272"
+                android:textSize="14dp" />
 
 
         </LinearLayout>

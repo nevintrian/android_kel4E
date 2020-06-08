@@ -1,110 +1,89 @@
 package com.example.inventoria.ui.gudang;
 
-
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.inventoria.R;
 import com.example.inventoria.model.User;
+import com.example.inventoria.tools.Url;
 
 
 import java.util.List;
 
+public class GudangAdapter extends RecyclerView.Adapter<GudangAdapter.ViewHolder> {
 
-public class GudangAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    List<User> users;
+    Context mContext;
 
-    public final int TYPE_LIST = 0 ;
-    public final int TYPE_LOAD = 1 ;
-
-    private List<User> gudangs;
-    OnLoadMoreListener loadMoreListener;
-    boolean isLoading = false;
-    boolean isMoreDataAvailable = true;
-
-    public GudangAdapter(List<User> gudangs) {
-        this.gudangs = gudangs;
+    public GudangAdapter(List<User> users, Context context) {
+        mContext = context;
+        this.users = users;
     }
+
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        if (i == TYPE_LIST) {
-            return new ListHolder(inflater.inflate(R.layout.list_gudang, viewGroup, false));
-        } else {
-            return new LoadHolder(inflater.inflate(R.layout.list_loading, viewGroup, false));
-        }
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_gudang,
+                viewGroup, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        User user = gudangs.get(i);
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        User user = users.get(i);
+        viewHolder.email.setText(user.getEmail());
+        viewHolder.username.setText(user.getUsername());
+        viewHolder.level.setText(user.getLevel());
+        viewHolder.nama.setText(user.getNama());
+        viewHolder.tgl_lahir.setText(user.getTgl_lahir());
+        viewHolder.jenis_kelamin.setText(user.getJenis_kelamin());
+        viewHolder.alamat.setText(user.getAlamat());
+        viewHolder.no_telp.setText(user.getNo_telp());
 
-        if (i >= getItemCount()-1 && isMoreDataAvailable && !isLoading && loadMoreListener !=
-                null) {
-            isLoading = true;
-            loadMoreListener.onLoadMore();
-        }
+        String URL = Url.URL + "image/user/";
 
-        if (getItemViewType(i) == TYPE_LIST){
-            ListHolder listHolder = (ListHolder) viewHolder;
-            listHolder.nama.setText(user.getNama());
-            listHolder.no_telp.setText(user.getNo_telp());
-            listHolder.alamat.setText(user.getAlamat());
-        }
-    }
+        Glide.with(mContext).load(URL + user.getFoto())
+                .thumbnail(0.5f)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .into(viewHolder.foto);
 
-    @Override
-    public int getItemViewType(int position) {
-        return (position == gudangs.size()) ? TYPE_LOAD : TYPE_LIST;
     }
 
     @Override
     public int getItemCount() {
-        return gudangs.size();
+        return users.size();
     }
 
     public User getGudang(int position) {
-        return gudangs.get(position);
+        return users.get(position);
     }
 
-    static class ListHolder extends RecyclerView.ViewHolder {
-        TextView nama, no_telp, alamat;
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ListHolder(@NonNull View itemView) {
+        TextView email, username, level, nama, tgl_lahir, jenis_kelamin, alamat, no_telp;
+        ImageView foto;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            email = itemView.findViewById(R.id.email);
+            username = itemView.findViewById(R.id.username);
+            level = itemView.findViewById(R.id.level);
             nama = itemView.findViewById(R.id.nama);
-            no_telp = itemView.findViewById(R.id.no_telp);
+            tgl_lahir = itemView.findViewById(R.id.tgl_lahir);
+            jenis_kelamin = itemView.findViewById(R.id.jenis_kelamin);
             alamat = itemView.findViewById(R.id.alamat);
+            no_telp = itemView.findViewById(R.id.no_telp);
+            foto = itemView.findViewById(R.id.foto);
         }
     }
-
-    static class LoadHolder extends RecyclerView.ViewHolder {
-        public LoadHolder(@NonNull View itemView) {
-            super(itemView);
-        }
-    }
-
-    public void setMoreDataAvailable(boolean moreDataAvailable) {
-        isMoreDataAvailable = moreDataAvailable;
-    }
-
-    public void notifyDataChanged() {
-        notifyDataSetChanged();
-        isLoading =  false;
-    }
-
-    public interface OnLoadMoreListener {
-        void onLoadMore();
-    }
-
-    public void setLoadMoreListener(OnLoadMoreListener loadMoreListener) {
-        this.loadMoreListener = loadMoreListener;
-    }
-
 }

@@ -1,4 +1,4 @@
-package com.example.inventoria.ui.user;
+package com.example.inventoria.ui.profil;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,72 +13,75 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.inventoria.R;
-import com.example.inventoria.model.User;
-import com.example.inventoria.tools.Url;
 
+
+import com.example.inventoria.model.User;
+import com.example.inventoria.tools.SessionManager;
+import com.example.inventoria.tools.Url;
 
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class ProfilAdapter extends RecyclerView.Adapter<ProfilAdapter.ViewHolder> {
+    SessionManager sessionManager;
 
-    List<User> users;
     Context mContext;
 
-    public UserAdapter(List<User> users, Context context) {
+    public ProfilAdapter(Context context) {
         mContext = context;
-        this.users = users;
+
     }
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_user,
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_profil,
                 viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        User user = users.get(i);
-        viewHolder.email.setText(user.getEmail());
-        viewHolder.username.setText(user.getUsername());
 
-        viewHolder.level.setText(user.getLevel());
-        viewHolder.nama.setText(user.getNama());
-        viewHolder.tgl_lahir.setText(user.getTgl_lahir());
-        viewHolder.jenis_kelamin.setText(user.getJenis_kelamin());
-        viewHolder.alamat.setText(user.getAlamat());
-        viewHolder.no_telp.setText(user.getNo_telp());
+        sessionManager = new SessionManager(mContext.getApplicationContext());
+        viewHolder.id_user.setText(sessionManager.getKeyId_user());
+        viewHolder.email.setText(sessionManager.getKeyEmail());
+        viewHolder.username.setText(sessionManager.getKeyUsername());
+        viewHolder.password.setText(sessionManager.getKeyPassword());
+        viewHolder.level.setText(sessionManager.getKeyLevel());
+        viewHolder.nama.setText(sessionManager.getKeyNama());
+        viewHolder.tgl_lahir.setText(sessionManager.getKeyTgl_lahir());
+        viewHolder.jenis_kelamin.setText(sessionManager.getKeyJenis_kelamin());
+        viewHolder.alamat.setText(sessionManager.getKeyAlamat());
+        viewHolder.no_telp.setText(sessionManager.getKeyNo_telp());
 
         String URL = Url.URL + "image/user/";
 
-        Glide.with(mContext).load(URL + user.getFoto())
+        Glide.with(mContext).load(URL + sessionManager.getKeyFoto())
                 .thumbnail(0.5f)
                 .transition(new DrawableTransitionOptions().crossFade())
                 .into(viewHolder.foto);
 
     }
 
+
     @Override
     public int getItemCount() {
-        return users.size();
+        return 0;
     }
 
-    public User getUser(int position) {
-        return users.get(position);
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView email, username, level, nama, tgl_lahir, jenis_kelamin, alamat, no_telp;
+        TextView id_user, email, username, password, level, nama, tgl_lahir, jenis_kelamin, alamat, no_telp;
         ImageView foto;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            id_user = itemView.findViewById(R.id.id_user);
             email = itemView.findViewById(R.id.email);
             username = itemView.findViewById(R.id.username);
-
+            password = itemView.findViewById(R.id.password);
             level = itemView.findViewById(R.id.level);
             nama = itemView.findViewById(R.id.nama);
             tgl_lahir = itemView.findViewById(R.id.tgl_lahir);
@@ -86,6 +89,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             alamat = itemView.findViewById(R.id.alamat);
             no_telp = itemView.findViewById(R.id.no_telp);
             foto = itemView.findViewById(R.id.foto);
+
         }
     }
 }

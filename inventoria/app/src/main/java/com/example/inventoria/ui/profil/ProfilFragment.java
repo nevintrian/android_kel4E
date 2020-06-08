@@ -22,8 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.inventoria.R;
+import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+
 import com.example.inventoria.ui.barang.editor.BarangActivity;
 import com.example.inventoria.ui.daftar.DaftarActivity;
 import com.example.inventoria.ui.gudang.GudangAdapter;
@@ -41,11 +43,11 @@ import butterknife.OnClick;
 
 public class ProfilFragment extends Fragment {
 
-
+    ProfilAdapter adapter;
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
-    @BindView(R.id.recyclerUser)
+    @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
     @BindView(R.id.swipe_refresh)
@@ -66,6 +68,10 @@ public class ProfilFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
+
+
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -25,36 +25,31 @@ public class GudangPresenter {
         disposable = new CompositeDisposable();
     }
 
-    public void getGudangs() {
+    public void getGudang() {
         view.showProgress();
         disposable.add(
-                apiInterface.getGudangs()
+                apiInterface.getGudang()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<UserResponse>(){
                             @Override
                             public void onNext(UserResponse userResponse) {
-                                if (userResponse.getStatus().equals("true")) {
-                                    view.statusSuccess(userResponse);
-                                } else {
-                                    view.statusError(userResponse.getStatus());
-                                }
+                                view.statusSuccess(userResponse);
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 view.hideProgress();
+                                view.statusError(e.getLocalizedMessage());
                             }
 
                             @Override
                             public void onComplete() {
                                 view.hideProgress();
-
                             }
                         })
         );
     }
-
 
 
     public void detachView() {

@@ -28,7 +28,7 @@ public class ProfilPresenter {
     void updateProfil(String id_user, String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String no_telp, String alamat) {
         view.showProgress();
         disposable.add(
-                apiInterface.updateUser(id_user, email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
+                apiInterface.updateProfil(id_user, email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableCompletableObserver(){

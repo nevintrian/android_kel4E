@@ -35,8 +35,11 @@ public class User {
     @Expose
     @SerializedName("alamat")
     String alamat;
+    @Expose
+    @SerializedName("foto")
+    String foto;
 
-    public User(String alamat) { this.alamat = alamat; }
+
 
     public String getId_user() { return id_user; }
 
@@ -82,5 +85,13 @@ public class User {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

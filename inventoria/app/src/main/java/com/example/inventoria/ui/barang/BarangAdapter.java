@@ -42,7 +42,10 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Barang barang = barangs.get(i);
         viewHolder.nama_barang.setText(barang.getNama_barang());
+        viewHolder.jenis.setText(barang.getJenis());
+        viewHolder.merk.setText(barang.getMerk());
         viewHolder.harga.setText(barang.getHarga());
+        viewHolder.kemasan.setText(barang.getKemasan());
         viewHolder.stok.setText(barang.getStok());
         viewHolder.terjual.setText(barang.getTerjual());
 
@@ -66,13 +69,16 @@ public class BarangAdapter extends RecyclerView.Adapter<BarangAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nama_barang, harga, stok, terjual;
+        TextView nama_barang, jenis, merk, harga, stok, kemasan, terjual;
         ImageView foto_barang;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nama_barang = itemView.findViewById(R.id.nama_barang);
+            jenis = itemView.findViewById(R.id.jenis);
+            merk = itemView.findViewById(R.id.merk);
             harga = itemView.findViewById(R.id.harga);
+            kemasan = itemView.findViewById(R.id.kemasan);
             stok = itemView.findViewById(R.id.stok);
             terjual = itemView.findViewById(R.id.terjual);
             foto_barang = itemView.findViewById(R.id.foto_barang);

@@ -1,7 +1,5 @@
 package com.example.inventoria.ui.user;
 
-import android.util.Log;
-
 import com.example.inventoria.network.ApiClient;
 import com.example.inventoria.network.ApiInterface;
 import com.example.inventoria.network.response.UserResponse;
@@ -14,46 +12,41 @@ import io.reactivex.schedulers.Schedulers;
 
 public class UserPresenter {
 
-    com.example.inventoria.ui.user.UserView view;
+    UserView view;
     ApiInterface apiInterface;
     CompositeDisposable disposable;
 
-    public UserPresenter(UserView userView) {
-        this.view = userView;
+    public UserPresenter(UserView view) {
+        this.view = view;
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         disposable = new CompositeDisposable();
     }
 
-    public void getUsers() {
+    public void getUser() {
         view.showProgress();
         disposable.add(
-                apiInterface.getUsers()
+                apiInterface.getUser()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<UserResponse>(){
                             @Override
                             public void onNext(UserResponse userResponse) {
-                                if (userResponse.getStatus().equals("true")) {
-                                    view.statusSuccess(userResponse);
-                                } else {
-                                    view.statusError(userResponse.getStatus());
-                                }
+                                view.statusSuccess(userResponse);
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 view.hideProgress();
+                                view.statusError(e.getLocalizedMessage());
                             }
 
                             @Override
                             public void onComplete() {
                                 view.hideProgress();
-
                             }
                         })
         );
     }
-
 
     public void detachView() {
         disposable.dispose();

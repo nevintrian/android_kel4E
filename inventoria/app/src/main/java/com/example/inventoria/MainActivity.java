@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         tv_username.setText(sessionManager.getKeyUsername());
 
         TextView tv_level = (TextView) headerView.findViewById(R.id.level);
-        tv_level.setText(sessionManager.getKeyFoto());
+        tv_level.setText(sessionManager.getKeyLevel());
 
 
         String link = Url.URL + "image/user/";

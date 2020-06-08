@@ -3,7 +3,6 @@ package com.example.inventoria.ui.sales.editor;
 import com.example.inventoria.network.ApiClient;
 import com.example.inventoria.network.ApiInterface;
 import com.example.inventoria.network.response.UserResponse;
-import com.example.inventoria.ui.user.editor.UserView;
 
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,34 +10,36 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class SalesPresenter {
 
-    SalesActivity view;
+    SalesView view;
     CompositeDisposable disposable;
     ApiInterface apiInterface;
 
-    public SalesPresenter(SalesActivity view) {
+    public SalesPresenter(SalesView view) {
         this.view = view;
         disposable = new CompositeDisposable();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    void saveSales(String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String no_telp, String alamat) {
+    void saveSales( MultipartBody.Part foto, RequestBody email, RequestBody username, RequestBody password, RequestBody level, RequestBody nama, RequestBody
+            tgl_lahir, RequestBody jenis_kelamin, RequestBody alamat, RequestBody no_telp) {
         view.showProgress();
         disposable.add(
-                apiInterface.saveSales(email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
+                apiInterface.saveSales(foto, email, username, password, level, nama, tgl_lahir, jenis_kelamin, alamat, no_telp)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<UserResponse>() {
                             @Override
-                            public void onNext(UserResponse UserResponse) {
-                                view.statusSuccess(UserResponse.getMessage());
+                            public void onNext(UserResponse userResponse) {
+                                view.statusSuccess(userResponse.getMessage());
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                view.hideProgress();
                                 view.statusError(e.getLocalizedMessage());
                             }
 
@@ -50,52 +51,50 @@ public class SalesPresenter {
         );
     }
 
-    void updateSales(String id_user, String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String no_telp, String alamat) {
+    void updateSales( String id_user, MultipartBody.Part foto, RequestBody email, RequestBody username, RequestBody password, RequestBody level, RequestBody nama, RequestBody
+            tgl_lahir, RequestBody jenis_kelamin, RequestBody alamat, RequestBody no_telp) {
         view.showProgress();
         disposable.add(
-                apiInterface.updateSales(id_user, email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(new DisposableCompletableObserver(){
-                                @Override
-                                public void onComplete() {
-                                    view.hideProgress();
-                                    view.statusSuccess("berhasil update");
-                                }
+                apiInterface.updateSales(id_user, foto, email, username, password, level, nama, tgl_lahir, jenis_kelamin, alamat, no_telp)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableCompletableObserver(){
+                            @Override
+                            public void onComplete() {
+                                view.hideProgress();
+                                view.statusSuccess("berhasil update");
+                            }
 
-                                @Override
-                                public void onError(Throwable e) {
-                                    view.hideProgress();
-                                    view.statusError(e.getLocalizedMessage());
-                                }
-                            })
+                            @Override
+                            public void onError(Throwable e) {
+                                view.statusError(e.getLocalizedMessage());
+                            }
+                        })
         );
     }
 
-    void deleteSales(String id_user) {
+    void deleteSales( String id_user) {
         view.showProgress();
         disposable.add(
-                apiInterface.deleteSales(id_user)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(new DisposableCompletableObserver(){
-                                @Override
-                                public void onComplete() {
-                                    view.hideProgress();
-                                    view.statusSuccess("berhasil delete");
-                                }
+                apiInterface.deleteSales( id_user)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableCompletableObserver(){
+                            @Override
+                            public void onComplete() {
+                                view.hideProgress();
+                                view.statusSuccess("berhasil delete");
+                            }
 
-                                @Override
-                                public void onError(Throwable e) {
-                                    view.hideProgress();
-                                    view.statusError(e.getLocalizedMessage());
-                                }
-                            })
+                            @Override
+                            public void onError(Throwable e) {
+                                view.statusError(e.getLocalizedMessage());
+                            }
+                        })
         );
     }
 
     public void detachView() {
         disposable.dispose();
     }
-
 }
