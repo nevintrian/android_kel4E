@@ -59,7 +59,7 @@
         </activity>
         <activity android:name=".ui.barang.editor.BarangActivity">
     </activity>
-        <activity android:name=".ui.profil.ProfilActivity">
+        <activity android:name=".ui.profil.editor.ProfilActivity">
         </activity>
         <activity
             android:name=".MainActivity"

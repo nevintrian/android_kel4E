@@ -4,49 +4,48 @@ import com.example.inventoria.network.ApiClient;
 import com.example.inventoria.network.ApiInterface;
 import com.example.inventoria.network.response.UserResponse;
 
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class ProfilPresenter {
 
-    ProfilActivity view;
-    CompositeDisposable disposable;
+    ProfilView view;
     ApiInterface apiInterface;
+    CompositeDisposable disposable;
 
-    public ProfilPresenter(ProfilActivity view) {
-        this.view = view;
-        disposable = new CompositeDisposable();
+    public ProfilPresenter(ProfilView profilView) {
+        this.view = profilView;
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        disposable = new CompositeDisposable();
     }
 
-
-
-    void updateProfil(String id_user, String email, String username, String password, String level, String nama, String tgl_lahir, String jenis_kelamin, String no_telp, String alamat) {
+    public void getProfil(String id_user) {
         view.showProgress();
         disposable.add(
-                apiInterface.updateProfil(id_user, email, username, password, level, nama, tgl_lahir, jenis_kelamin, no_telp, alamat)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(new DisposableCompletableObserver(){
-                                @Override
-                                public void onComplete() {
-                                    view.hideProgress();
-                                    view.statusSuccess("berhasil update");
-                                }
+                apiInterface.getProfil(id_user)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<UserResponse>(){
+                            @Override
+                            public void onNext(UserResponse userResponse) {
+                                view.statusSuccess(userResponse);
+                            }
 
-                                @Override
-                                public void onError(Throwable e) {
-                                    view.hideProgress();
-                                    view.statusError(e.getLocalizedMessage());
-                                }
-                            })
+                            @Override
+                            public void onError(Throwable e) {
+                                view.hideProgress();
+                                view.statusError(e.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                view.hideProgress();
+                            }
+                        })
         );
     }
-
 
     public void detachView() {
         disposable.dispose();

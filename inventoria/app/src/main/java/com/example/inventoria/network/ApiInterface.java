@@ -53,20 +53,24 @@ public interface ApiInterface {
     Completable deleteSupplier(@Path("id_supplier") String id_supplier);
 
 
-
-    @FormUrlEncoded
-    @PUT("user/{id_user}")
+    @GET("profil/{id_user}")
+    Observable<UserResponse> getProfil(@Path("id_user") String  id_user);
+    @Multipart
+    @POST("profil/update/{id_user}")
     Completable updateProfil(
             @Path("id_user") String  id_user,
-            @Field("email") String email,
-            @Field("username") String username,
-            @Field("password") String password,
-            @Field("level") String level,
-            @Field("nama") String nama,
-            @Field("tgl_lahir") String tgl_lahir,
-            @Field("jenis_kelamin") String jenis_kelamin,
-            @Field("no_telp") String no_telp,
-            @Field("alamat") String alamat);
+            @Part MultipartBody.Part foto,
+            @Part("email") RequestBody email,
+            @Part("username") RequestBody username,
+            @Part("password") RequestBody password,
+            @Part("level") RequestBody level,
+            @Part("nama") RequestBody nama,
+            @Part("tgl_lahir") RequestBody tgl_lahir,
+            @Part("jenis_kelamin") RequestBody jenis_kelamin,
+            @Part("alamat") RequestBody alamat,
+            @Part("no_telp") RequestBody no_telp);
+
+
 
 
 

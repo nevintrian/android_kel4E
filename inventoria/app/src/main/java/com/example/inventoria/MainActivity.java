@@ -1,10 +1,7 @@
 package com.example.inventoria;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,20 +19,15 @@ import com.example.inventoria.tools.SessionManager;
 
 import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.BarangFragment;
-import com.example.inventoria.ui.daftar.DaftarActivity;
 import com.example.inventoria.ui.gudang.GudangFragment;
 import com.example.inventoria.ui.home.HomeFragment;
-import com.example.inventoria.ui.login.LoginActivity;
 import com.example.inventoria.ui.pelanggan.PelangganFragment;
-import com.example.inventoria.ui.profil.ProfilActivity;
 
 import com.example.inventoria.ui.profil.ProfilFragment;
 import com.example.inventoria.ui.sales.SalesFragment;
 import com.example.inventoria.ui.supplier.SupplierFragment;
 import com.example.inventoria.ui.user.UserFragment;
 import com.google.android.material.navigation.NavigationView;
-
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
