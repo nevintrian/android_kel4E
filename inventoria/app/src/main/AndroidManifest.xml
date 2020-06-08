@@ -61,6 +61,10 @@
     </activity>
         <activity android:name=".ui.profil.editor.ProfilActivity">
         </activity>
+        <activity android:name=".ui.masuk.editor.MasukActivity">
+        </activity>
+        <activity android:name=".ui.keluar.editor.KeluarActivity">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

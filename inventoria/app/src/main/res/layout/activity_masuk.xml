@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".ui.masuk.editor.MasukActivity">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/id_masuk"
+            android:hint="Id masuk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/id_supplier"
+            android:hint="Id supplier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/tgl_masuk"
+            android:hint="Tanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/total_masuk"
+            android:hint="Total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/content_simpan"
+        android:gravity="center|bottom"
+        android:layout_weight="1"
+        android:weightSum="1.0"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/simpan"
+            android:text="Simpan"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#fff"
+            android:background="@drawable/roundedcorner"
+            android:layout_width="0dip" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/content_update"
+        android:visibility="gone"
+        android:gravity="center|bottom"
+        android:layout_weight="1"
+        android:weightSum="1.0"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/hapus"
+            android:text="Hapus"
+            android:layout_height="wrap_content"
+            android:layout_weight=".3"
+            android:layout_width="0dip"
+            android:textColor="#fff"
+            android:background="@drawable/roundedcorner1"/>
+
+        <Button
+            android:id="@+id/update"
+            android:text="Update"
+            android:layout_height="wrap_content"
+            android:layout_weight=".7"
+            android:layout_width="0dip"
+            android:textColor="#fff"
+            android:background="@drawable/roundedcorner"/>
+
+    </LinearLayout>
+
+</LinearLayout>

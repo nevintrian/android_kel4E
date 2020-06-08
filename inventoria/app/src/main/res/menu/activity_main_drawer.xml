@@ -39,20 +39,36 @@
     </item>
 
     <item android:title="Data Pegawai">
+    <menu>
+        <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_user"
+                android:icon="@drawable/ic_supplier"
+                android:title="Data Admin"/>
+            <item
+                android:id="@+id/nav_gudang"
+                android:icon="@drawable/ic_supplier"
+                android:title="Data Gudang"/>
+            <item
+                android:id="@+id/nav_sales"
+                android:icon="@drawable/ic_supplier"
+                android:title="Data Sales"/>
+        </group>
+    </menu>
+</item>
+
+    <item android:title="Data Transaksi">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_user"
-                    android:icon="@drawable/ic_supplier"
-                    android:title="Data Admin"/>
+                    android:id="@+id/nav_masuk"
+                    android:icon="@drawable/ic_penjualan"
+                    android:title="Transaksi Masuk"/>
                 <item
-                    android:id="@+id/nav_gudang"
-                    android:icon="@drawable/ic_supplier"
-                    android:title="Data Gudang"/>
-                <item
-                    android:id="@+id/nav_sales"
-                    android:icon="@drawable/ic_supplier"
-                    android:title="Data Sales"/>
+                    android:id="@+id/nav_keluar"
+                    android:icon="@drawable/ic_penjualan"
+                    android:title="Transaksi Keluar"/>
+
             </group>
         </menu>
     </item>

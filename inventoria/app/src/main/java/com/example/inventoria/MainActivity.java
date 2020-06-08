@@ -21,6 +21,8 @@ import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.BarangFragment;
 import com.example.inventoria.ui.gudang.GudangFragment;
 import com.example.inventoria.ui.home.HomeFragment;
+import com.example.inventoria.ui.keluar.KeluarFragment;
+import com.example.inventoria.ui.masuk.MasukFragment;
 import com.example.inventoria.ui.pelanggan.PelangganFragment;
 
 import com.example.inventoria.ui.profil.ProfilFragment;
@@ -134,6 +136,16 @@ public class MainActivity extends AppCompatActivity
            getSupportFragmentManager()
                    .beginTransaction()
                    .replace(R.id.mainFrame, new ProfilFragment())
+                   .commit();
+       } else if (id == R.id.nav_masuk) {
+           getSupportFragmentManager()
+                   .beginTransaction()
+                   .replace(R.id.mainFrame, new MasukFragment())
+                   .commit();
+       } else if (id == R.id.nav_keluar) {
+           getSupportFragmentManager()
+                   .beginTransaction()
+                   .replace(R.id.mainFrame, new KeluarFragment())
                    .commit();
         } else if (id == R.id.nav_logout) {
             sessionManager.logoutUser();

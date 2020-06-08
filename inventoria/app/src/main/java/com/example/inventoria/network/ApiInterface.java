@@ -2,6 +2,8 @@ package com.example.inventoria.network;
 
 
 import com.example.inventoria.network.response.BarangResponse;
+import com.example.inventoria.network.response.KeluarResponse;
+import com.example.inventoria.network.response.MasukResponse;
 import com.example.inventoria.network.response.SupplierResponse;
 import com.example.inventoria.network.response.UserResponse;
 
@@ -294,4 +296,57 @@ public interface ApiInterface {
 
 
 
+
+    //Supplier CRUD
+    @GET("masuk")
+    Observable<MasukResponse> getMasuks();
+//    @GET("masuk/{page}")
+//    Call<MasukResponse> getMasuks(@Header("Authorization") String token,
+//                                        @Path("page") String page);
+
+    @FormUrlEncoded
+    @POST("masuk")
+    Observable<MasukResponse> saveMasuk(
+            @Field("id_supplier") String id_supplier,
+            @Field("tgl_masuk") String tgl_masuk,
+            @Field("total_masuk") String total_masuk);
+
+    @FormUrlEncoded
+    @PUT("masuk/{id_masuk}")
+    Completable updateMasuk(
+            @Path("id_masuk") String id_masuk,
+            @Field("id_supplier") String id_supplier,
+            @Field("tgl_masuk") String tgl_masuk,
+            @Field("total_masuk") String total_masuk);
+
+    @DELETE("masuk/{id_masuk}")
+    Completable deleteMasuk(@Path("id_masuk") String id_supplier);
+
+
+
+
+    //Supplier CRUD
+    @GET("keluar")
+    Observable<KeluarResponse> getKeluars();
+//    @GET("keluar/{page}")
+//    Call<KeluarResponse> getKeluars(@Header("Authorization") String token,
+//                                        @Path("page") String page);
+
+    @FormUrlEncoded
+    @POST("keluar")
+    Observable<KeluarResponse> saveKeluar(
+            @Field("id_user") String id_user,
+            @Field("tgl_keluar") String tgl_keluar,
+            @Field("total_keluar") String total_keluar);
+
+    @FormUrlEncoded
+    @PUT("keluar/{id_keluar}")
+    Completable updateKeluar(
+            @Path("id_keluar") String id_keluar,
+            @Field("id_user") String id_user,
+            @Field("tgl_keluar") String tgl_keluar,
+            @Field("total_keluar") String total_keluar);
+
+    @DELETE("keluar/{id_keluar}")
+    Completable deleteKeluar(@Path("id_keluar") String id_supplier);
 }
