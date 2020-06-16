@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -70,8 +71,8 @@ public class HomeFragment extends Fragment implements HomeView {
         presenter = new HomePresenter(this);
         presenter.getBarang();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2, RecyclerView.VERTICAL,false));
+
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

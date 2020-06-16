@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -62,21 +63,21 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
 
     @BindView(R.id.id_supplier)
-    EditText et_id_supplier;
+    TextView et_id_supplier;
     @BindView(R.id.nama_barang)
-    EditText et_nama_barang;
+    TextView et_nama_barang;
     @BindView(R.id.kemasan)
-    EditText et_kemasan;
+    TextView et_kemasan;
     @BindView(R.id.merk)
-    EditText et_merk;
+    TextView et_merk;
     @BindView(R.id.jenis)
-    EditText et_jenis;
+    TextView et_jenis;
     @BindView(R.id.stok)
-    EditText et_stok;
+    TextView et_stok;
     @BindView(R.id.harga)
-    EditText et_harga;
+    TextView et_harga;
     @BindView(R.id.terjual)
-    EditText et_terjual;
+    TextView et_terjual;
     @BindView(R.id.foto_barang)
     ImageView iv_foto_barang;
     @BindView(R.id.content_simpan)
