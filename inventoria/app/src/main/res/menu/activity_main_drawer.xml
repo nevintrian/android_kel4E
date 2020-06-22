@@ -8,7 +8,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_penjualan"
+            android:icon="@drawable/asa1"
             android:title="Halaman Utama"/>
 
 
@@ -22,15 +22,15 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_barang"
-                    android:icon="@drawable/ic_barang"
+                    android:icon="@drawable/bb"
                     android:title="Data Barang"/>
                 <item
                     android:id="@+id/nav_pelanggan"
-                    android:icon="@drawable/ic_supplier"
+                    android:icon="@drawable/uu"
                     android:title="Data Pelanggan"/>
                 <item
                     android:id="@+id/nav_supplier"
-                    android:icon="@drawable/ic_supplier"
+                    android:icon="@drawable/uu6"
                     android:title="Data Supplier"/>
 
 
@@ -43,15 +43,15 @@
         <group android:checkableBehavior="single">
             <item
                 android:id="@+id/nav_user"
-                android:icon="@drawable/ic_supplier"
+                android:icon="@drawable/uu1"
                 android:title="Data Admin"/>
             <item
                 android:id="@+id/nav_gudang"
-                android:icon="@drawable/ic_supplier"
+                android:icon="@drawable/uu4"
                 android:title="Data Gudang"/>
             <item
                 android:id="@+id/nav_sales"
-                android:icon="@drawable/ic_supplier"
+                android:icon="@drawable/uu2"
                 android:title="Data Sales"/>
         </group>
     </menu>
@@ -62,11 +62,11 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_masuk"
-                    android:icon="@drawable/ic_penjualan"
+                    android:icon="@drawable/tr2"
                     android:title="Transaksi Masuk"/>
                 <item
                     android:id="@+id/nav_keluar"
-                    android:icon="@drawable/ic_penjualan"
+                    android:icon="@drawable/tr4"
                     android:title="Transaksi Keluar"/>
 
             </group>
@@ -78,7 +78,7 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_profil"
-                    android:icon="@drawable/user_icon"
+                    android:icon="@drawable/uu5"
                     android:title="Setting Akun"/>
                 <item
                     android:id="@+id/nav_logout"
