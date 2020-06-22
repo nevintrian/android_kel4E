@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ import com.example.inventoria.R;
 import com.example.inventoria.tools.FileUtils;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.Url;
+import com.example.inventoria.ui.user.editor.UserActivity;
 
 
 import java.io.File;
@@ -50,7 +52,7 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
     ProgressDialog progressDialog;
     SalesPresenter presenter;
     Uri uri;
-
+    Boolean CheckEditText;
     String id_user, email, username, password, level, nama, tgl_lahir, jenis_kelamin, alamat, no_telp, foto;
     String currentPhotoPath;
     String selectImagePath;
@@ -104,34 +106,19 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
     }
 
     @OnClick(R.id.select) void selectImage() {
-        permission();
 
-        new MaterialDialog.Builder(this)
-                .title("Select Image")
-                .items(R.array.uploadImages)
-                .itemsIds(R.array.itemIds)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
-                        switch (position) {
-                            case 0:
                                 Intent intentGallery = new Intent();
                                 intentGallery.setType("image/*");
                                 intentGallery.setAction(Intent.ACTION_GET_CONTENT);
                                 startActivityForResult(intentGallery.createChooser(intentGallery, "Select Image"), REQUEST_GALLERY);
-                                break;
-                            case 1:
-                                Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                uri = ambilOutputMediaFileUri(type_foto_code);
-                                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                                startActivityForResult(intentCamera, REQUEST_CAMERA);
+
                         }
-                    }
-                })
-                .show();
-    }
+
 
     @OnClick(R.id.simpan) void simpan() {
+        CheckEditTextIsEmptyOrNot();
+
+        if (CheckEditText) {
         File file = FileUtils.getFile(SalesActivity.this, uri);
         RequestBody fotoBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part fotoPart = MultipartBody.Part.createFormData("foto", file.getName
@@ -169,9 +156,18 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
                 no_telpBody
 
         );
+        } else {
+
+            Toast.makeText(SalesActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+        }
     }
 
     @OnClick(R.id.update) void update() {
+            CheckEditTextIsEmptyOrNot();
+
+            if (CheckEditText) {
+
         MultipartBody.Part fotoPart = null;
         // Cek jika ada file gambar yang telah di set atau tidak
         if (uri == null) {
@@ -219,7 +215,11 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
                 no_telpBody
 
         );
+        } else {
 
+            Toast.makeText(SalesActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+        }
     }
 
     @OnClick(R.id.hapus) void hapus() {
@@ -394,6 +394,34 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
         currentPhotoPath = "file:" + mediaFile.getAbsolutePath();
         Log.d("currentPhotoPath : ", currentPhotoPath);
         return mediaFile;
+    }
+
+
+    public void CheckEditTextIsEmptyOrNot() {
+
+
+        // Getting values from EditText.
+        String email1 = et_email.getText().toString().trim();
+        String username1 = et_username.getText().toString().trim();
+        String password1 = et_password.getText().toString().trim();
+        String level1 = et_level.getText().toString().trim();
+        String nama1 = et_nama.getText().toString().trim();
+        String tgl_lahir1 = et_tgl_lahir.getText().toString().trim();
+        String jenis_kelamin1 = et_jenis_kelamin.getText().toString().trim();
+        String alamat1 = et_alamat.getText().toString().trim();
+        String no_telp1 = et_no_telp.getText().toString().trim();
+        boolean i= iv_foto.getDrawable()==null;
+        // Checking whether EditText value is empty or not.
+        if (TextUtils.isEmpty(email1) || TextUtils.isEmpty(username1) || TextUtils.isEmpty(password1) || TextUtils.isEmpty(level1) || TextUtils.isEmpty(nama1) || TextUtils.isEmpty(tgl_lahir1) || TextUtils.isEmpty(jenis_kelamin1) || TextUtils.isEmpty(alamat1) || TextUtils.isEmpty(no_telp1) || i) {
+
+            // If any of EditText is empty then set variable value as False.
+            CheckEditText = false;
+
+        } else {
+
+            // If any of EditText is filled then set variable value as True.
+            CheckEditText = true;
+        }
     }
 
 }

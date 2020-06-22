@@ -103,32 +103,13 @@ public class ProfilActivity extends AppCompatActivity implements ProfilView {
     }
 
     @OnClick(R.id.select) void selectImage() {
-        permission();
 
-        new MaterialDialog.Builder(this)
-                .title("Select Image")
-                .items(R.array.uploadImages)
-                .itemsIds(R.array.itemIds)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
-                        switch (position) {
-                            case 0:
                                 Intent intentGallery = new Intent();
                                 intentGallery.setType("image/*");
                                 intentGallery.setAction(Intent.ACTION_GET_CONTENT);
                                 startActivityForResult(intentGallery.createChooser(intentGallery, "Select Image"), REQUEST_GALLERY);
-                                break;
-                            case 1:
-                                Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                uri = ambilOutputMediaFileUri(type_foto_code);
-                                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                                startActivityForResult(intentCamera, REQUEST_CAMERA);
+
                         }
-                    }
-                })
-                .show();
-    }
 
 
     @OnClick(R.id.update) void update() {

@@ -17,6 +17,7 @@
             android:id="@+id/foto_barang"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:layout_marginTop="10px"
             android:layout_marginLeft="260px"
             android:layout_marginBottom="50px"
             android:background="#16000000" />
@@ -218,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="#fff"
-                android:background="@drawable/roundedcorner"
+                android:background="@drawable/rc"
                 android:layout_width="0dip" />
 
         </LinearLayout>
@@ -242,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="#fff"
-                android:background="@drawable/roundedcorner"
+                android:background="@drawable/rc"
                 android:layout_width="0dip" />
 
         </LinearLayout>

@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -50,7 +51,7 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     ProgressDialog progressDialog;
     BarangPresenter presenter;
     Uri uri;
-
+    Boolean CheckEditText;
     String id_barang, id_supplier, nama_barang, kemasan, merk, jenis, stok, harga, terjual, foto_barang;
     String currentPhotoPath;
     String selectImagePath;
@@ -102,34 +103,22 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     }
 
     @OnClick(R.id.select) void selectImage() {
-        permission();
 
-        new MaterialDialog.Builder(this)
-                .title("Select Image")
-                .items(R.array.uploadImages)
-                .itemsIds(R.array.itemIds)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View itemView, int position, CharSequence text) {
-                        switch (position) {
-                            case 0:
                                 Intent intentGallery = new Intent();
                                 intentGallery.setType("image/*");
                                 intentGallery.setAction(Intent.ACTION_GET_CONTENT);
                                 startActivityForResult(intentGallery.createChooser(intentGallery, "Select Image"), REQUEST_GALLERY);
-                                break;
-                            case 1:
-                                Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                uri = ambilOutputMediaFileUri(type_foto_code);
-                                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-                                startActivityForResult(intentCamera, REQUEST_CAMERA);
-                        }
+
+
                     }
-                })
-                .show();
-    }
+
+
+
 
     @OnClick(R.id.simpan) void simpan() {
+        CheckEditTextIsEmptyOrNot();
+
+        if (CheckEditText) {
         File file = FileUtils.getFile(BarangActivity.this, uri);
         RequestBody foto_barangBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part foto_barangPart = MultipartBody.Part.createFormData("foto_barang", file.getName
@@ -164,9 +153,18 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
                 terjualBody
 
         );
+        } else {
+
+            Toast.makeText(BarangActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+        }
     }
 
     @OnClick(R.id.update) void update() {
+            CheckEditTextIsEmptyOrNot();
+
+            if (CheckEditText) {
+
         MultipartBody.Part foto_barangPart = null;
         // Cek jika ada file gambar yang telah di set atau tidak
         if (uri == null) {
@@ -212,7 +210,11 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
                 terjualBody
 
         );
+            } else {
 
+                Toast.makeText(BarangActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+            }
     }
 
     @OnClick(R.id.hapus) void hapus() {
@@ -384,6 +386,32 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
         currentPhotoPath = "file:" + mediaFile.getAbsolutePath();
         Log.d("currentPhotoPath : ", currentPhotoPath);
         return mediaFile;
+    }
+
+    public void CheckEditTextIsEmptyOrNot() {
+
+
+        // Getting values from EditText.
+        String id_supplier1 = et_id_supplier.getText().toString().trim();
+        String nama_barang1 = et_nama_barang.getText().toString().trim();
+        String kemasan1 = et_kemasan.getText().toString().trim();
+        String merk1 = et_merk.getText().toString().trim();
+        String jenis1 = et_jenis.getText().toString().trim();
+        String harga1 = et_harga.getText().toString().trim();
+        String stok1 = et_stok.getText().toString().trim();
+        String terjual1 = et_terjual.getText().toString().trim();
+        boolean i= iv_foto_barang.getDrawable()==null;
+        // Checking whether EditText value is empty or not.
+        if (TextUtils.isEmpty(id_supplier1) || TextUtils.isEmpty(nama_barang1) || TextUtils.isEmpty(kemasan1) || TextUtils.isEmpty(merk1) || TextUtils.isEmpty(jenis1) || TextUtils.isEmpty(harga1) || TextUtils.isEmpty(stok1) || TextUtils.isEmpty(terjual1) || i) {
+
+            // If any of EditText is empty then set variable value as False.
+            CheckEditText = false;
+
+        } else {
+
+            // If any of EditText is filled then set variable value as True.
+            CheckEditText = true;
+        }
     }
 
 }

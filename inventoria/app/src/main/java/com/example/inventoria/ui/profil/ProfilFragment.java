@@ -44,8 +44,6 @@ public class ProfilFragment extends Fragment implements ProfilView {
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
 
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipe;
@@ -79,10 +77,7 @@ public class ProfilFragment extends Fragment implements ProfilView {
         return x;
     }
 
-    @OnClick(R.id.fab) void editor() {
-        Intent intent = new Intent(getActivity(), ProfilActivity.class);
-        startActivityForResult(intent, REQUEST_UPDATE);
-    }
+
 
     @Override
     public void showProgress() {
