@@ -1,6 +1,7 @@
 package com.example.inventoria.network;
 
 
+import com.example.inventoria.model.Supplier;
 import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.network.response.KeluarResponse;
 import com.example.inventoria.network.response.MasukResponse;
@@ -35,6 +36,7 @@ public interface ApiInterface {
 //    @GET("supplier/{page}")
 //    Call<SupplierResponse> getSuppliers(@Header("Authorization") String token,
 //                                        @Path("page") String page);
+
 
     @FormUrlEncoded
     @POST("supplier")
@@ -307,16 +309,18 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("masuk")
     Observable<MasukResponse> saveMasuk(
+            @Field("id_barang") String id_barang,
             @Field("id_supplier") String id_supplier,
-            @Field("tgl_masuk") String tgl_masuk,
+            @Field("qty_masuk") String tgl_masuk,
             @Field("total_masuk") String total_masuk);
 
     @FormUrlEncoded
     @PUT("masuk/{id_masuk}")
     Completable updateMasuk(
             @Path("id_masuk") String id_masuk,
+            @Field("id_barang") String id_barang,
             @Field("id_supplier") String id_supplier,
-            @Field("tgl_masuk") String tgl_masuk,
+            @Field("qty_masuk") String tgl_masuk,
             @Field("total_masuk") String total_masuk);
 
     @DELETE("masuk/{id_masuk}")
@@ -335,6 +339,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("keluar")
     Observable<KeluarResponse> saveKeluar(
+            @Field("id_barang") String id_barang,
             @Field("id_user") String id_user,
             @Field("tgl_keluar") String tgl_keluar,
             @Field("total_keluar") String total_keluar);
@@ -343,10 +348,25 @@ public interface ApiInterface {
     @PUT("keluar/{id_keluar}")
     Completable updateKeluar(
             @Path("id_keluar") String id_keluar,
+            @Field("id_barang") String id_barang,
             @Field("id_user") String id_user,
             @Field("tgl_keluar") String tgl_keluar,
             @Field("total_keluar") String total_keluar);
 
     @DELETE("keluar/{id_keluar}")
     Completable deleteKeluar(@Path("id_keluar") String id_supplier);
+
+
+    @GET("supplier/list")
+        //    Call<BarangResponse> getBarangList(@Header("Authorization") String token);
+    Observable<SupplierResponse> getSupplierList();
+
+    @GET("pelanggan/list")
+        //    Call<BarangResponse> getBarangList(@Header("Authorization") String token);
+    Observable<UserResponse> getUserList();
+
+    @GET("barang/list")
+        //    Call<BarangResponse> getBarangList(@Header("Authorization") String token);
+    Observable<BarangResponse> getBarangList();
+
 }

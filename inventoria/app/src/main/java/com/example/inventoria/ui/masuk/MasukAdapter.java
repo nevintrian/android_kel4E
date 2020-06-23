@@ -53,9 +53,10 @@ public class MasukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         if (getItemViewType(i) == TYPE_LIST){
             ListHolder listHolder = (ListHolder) viewHolder;
-            listHolder.id_masuk.setText(masuk.getId_masuk());
-            listHolder.id_supplier.setText(masuk.getId_supplier());
+            listHolder.nama_barang.setText(masuk.getNama_barang());
+            listHolder.nama_supplier.setText(masuk.getNama_supplier());
             listHolder.tgl_masuk.setText(masuk.getTgl_masuk());
+            listHolder.qty_masuk.setText(masuk.getQty_masuk());
             listHolder.total_masuk.setText(masuk.getTotal_masuk());
         }
     }
@@ -75,13 +76,14 @@ public class MasukAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     static class ListHolder extends RecyclerView.ViewHolder {
-        TextView id_masuk, id_supplier, tgl_masuk, total_masuk;
+        TextView nama_barang, nama_supplier, tgl_masuk, qty_masuk, total_masuk;
 
         public ListHolder(@NonNull View itemView) {
             super(itemView);
-            id_masuk = itemView.findViewById(R.id.id_masuk);
-            id_supplier = itemView.findViewById(R.id.id_supplier);
+            nama_barang = itemView.findViewById(R.id.nama_barang);
+            nama_supplier = itemView.findViewById(R.id.nama_supplier);
             tgl_masuk = itemView.findViewById(R.id.tgl_masuk);
+            qty_masuk = itemView.findViewById(R.id.qty_masuk);
             total_masuk = itemView.findViewById(R.id.total_masuk);
         }
     }

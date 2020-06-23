@@ -9,30 +9,25 @@
     android:padding="10dp"
     tools:context=".ui.keluar.editor.KeluarActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <TextView
+        android:text="Pilih Barang :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <Spinner
+        android:id="@+id/nama_barang"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-        <EditText
-            android:id="@+id/id_keluar"
-            android:hint="Id Keluar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="5dp"
+    <TextView
+        android:text="Pilih User :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <Spinner
+        android:id="@+id/nama"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/id_user"
-            android:hint="Id user"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="5dp"
@@ -40,8 +35,8 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/tgl_keluar"
-            android:hint="Tanggal"
+            android:id="@+id/qty"
+            android:hint="Qty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

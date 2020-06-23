@@ -12,10 +12,12 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -28,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.inventoria.BuildConfig;
 import com.example.inventoria.R;
+import com.example.inventoria.network.response.SupplierResponse;
 import com.example.inventoria.tools.FileUtils;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.Url;
@@ -46,13 +49,13 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class BarangActivity extends AppCompatActivity implements BarangView {
-
+    SpinnerSupplierAdapter adapter;
     SessionManager session;
     ProgressDialog progressDialog;
     BarangPresenter presenter;
     Uri uri;
     Boolean CheckEditText;
-    String id_barang, id_supplier, nama_barang, kemasan, merk, jenis, stok, harga, terjual, foto_barang;
+    String id_barang, id_supplier, nama_supplier, nama_barang, kemasan, merk, jenis, stok, harga, terjual, foto_barang;
     String currentPhotoPath;
     String selectImagePath;
     static final String folder = "AndroidInventory";
@@ -61,8 +64,8 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     static final int REQUEST_CAMERA = 2;
 
 
-    @BindView(R.id.id_supplier)
-    EditText et_id_supplier;
+    @BindView(R.id.nama_supplier)
+    Spinner s_nama;
     @BindView(R.id.nama_barang)
     EditText et_nama_barang;
     @BindView(R.id.kemasan)
@@ -96,9 +99,21 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
         session = new SessionManager(this);
         presenter = new BarangPresenter(this);
 
-
+        presenter.getListSupplier();
         initDataIntent();
-        setTextEditor();
+        s_nama.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                nama_supplier = ((TextView) view.findViewById(R.id.nama_supplier)).getText().toString();
+                id_supplier = ((TextView) view.findViewById(R.id.id_supplier)).getText().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -123,8 +138,7 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
         RequestBody foto_barangBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part foto_barangPart = MultipartBody.Part.createFormData("foto_barang", file.getName
                 (), foto_barangBody);
-        RequestBody id_supplierBody = RequestBody.create(MediaType.parse("text/plain"), et_id_supplier.getText()
-                .toString());
+        RequestBody id_supplierBody = RequestBody.create(MediaType.parse("text/plain"),  id_supplier);
         RequestBody nama_barangBody = RequestBody.create(MediaType.parse("text/plain"), et_nama_barang.getText()
                 .toString());
         RequestBody kemasanBody = RequestBody.create(MediaType.parse("text/plain"), et_kemasan.getText()
@@ -177,8 +191,7 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
                     (), foto_barangBody);
         }
 
-        RequestBody id_supplierBody = RequestBody.create(MediaType.parse("text/plain"), et_id_supplier.getText()
-                .toString());
+        RequestBody id_supplierBody = RequestBody.create(MediaType.parse("text/plain"), id_supplier);
         RequestBody nama_barangBody = RequestBody.create(MediaType.parse("text/plain"), et_nama_barang.getText()
                 .toString());
         RequestBody kemasanBody = RequestBody.create(MediaType.parse("text/plain"), et_kemasan.getText()
@@ -260,6 +273,14 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     }
 
     @Override
+    public void setListSupplier(SupplierResponse supplierResponse) {
+        adapter = new SpinnerSupplierAdapter(this, R.layout.spinner_supplier,
+                supplierResponse.getData());
+        s_nama.setAdapter(adapter);
+
+        setTextEditor();
+    }
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.detachView();
@@ -284,7 +305,7 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
     private void setTextEditor() {
         if (id_barang != null) {
             getSupportActionBar().setTitle("Update data");
-            et_id_supplier.setText(id_supplier);
+            s_nama.setSelection(adapter.getItemIndexById(id_supplier));
             et_nama_barang.setText(nama_barang);
             et_kemasan.setText(kemasan);
             et_merk.setText(merk);
@@ -392,7 +413,7 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
 
 
         // Getting values from EditText.
-        String id_supplier1 = et_id_supplier.getText().toString().trim();
+        String id_supplier1 = id_supplier;
         String nama_barang1 = et_nama_barang.getText().toString().trim();
         String kemasan1 = et_kemasan.getText().toString().trim();
         String merk1 = et_merk.getText().toString().trim();

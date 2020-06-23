@@ -9,30 +9,26 @@
     android:padding="10dp"
     tools:context=".ui.masuk.editor.MasukActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <TextView
+        android:text="Pilih Barang :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <Spinner
+        android:id="@+id/nama_barang"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-        <EditText
-            android:id="@+id/id_masuk"
-            android:hint="Id masuk"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="5dp"
+    <TextView
+        android:text="Pilih Supplier :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"/>
+    <Spinner
+        android:id="@+id/nama_supplier"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/id_supplier"
-            android:hint="Id supplier"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="5dp"
@@ -40,8 +36,8 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/tgl_masuk"
-            android:hint="Tanggal"
+            android:id="@+id/qty"
+            android:hint="Qty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

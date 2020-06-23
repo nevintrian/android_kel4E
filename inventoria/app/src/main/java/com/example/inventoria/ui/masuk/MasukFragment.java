@@ -164,8 +164,9 @@ public class MasukFragment extends Fragment implements MasukView {
                         Intent intent = new Intent(getActivity(), MasukActivity.class);
 
                         intent.putExtra("id_masuk", masuk.getId_masuk());
+                        intent.putExtra("id_barang", masuk.getId_barang());
                         intent.putExtra("id_supplier", masuk.getId_supplier());
-                        intent.putExtra("tgl_masuk", masuk.getTgl_masuk());
+                        intent.putExtra("qty_masuk", masuk.getQty_masuk());
                         intent.putExtra("total_masuk", masuk.getTotal_masuk());
 
                         startActivityForResult(intent, REQUEST_UPDATE);

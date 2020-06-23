@@ -2,7 +2,9 @@ package com.example.inventoria.ui.keluar.editor;
 
 import com.example.inventoria.network.ApiClient;
 import com.example.inventoria.network.ApiInterface;
+import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.network.response.KeluarResponse;
+import com.example.inventoria.network.response.UserResponse;
 import com.example.inventoria.ui.keluar.editor.KeluarView;
 
 
@@ -24,10 +26,72 @@ public class KeluarPresenter {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    void saveKeluar(String id_user, String tgl_keluar, String total_keluar) {
+
+
+
+    void getListUser() {
         view.showProgress();
         disposable.add(
-                apiInterface.saveKeluar(id_user, tgl_keluar, total_keluar)
+                apiInterface.getUserList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<UserResponse>(){
+                            @Override
+                            public void onNext(UserResponse userResponse) {
+                                view.setListUser(userResponse);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.hideProgress();
+                                view.statusError(e.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                view.hideProgress();
+                            }
+                        })
+        );
+    }
+
+
+
+    void getListBarang() {
+        view.showProgress();
+        disposable.add(
+                apiInterface.getBarangList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<BarangResponse>(){
+                            @Override
+                            public void onNext(BarangResponse barangResponse) {
+                                view.setListBarang(barangResponse);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.hideProgress();
+                                view.statusError(e.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                view.hideProgress();
+                            }
+                        })
+        );
+    }
+
+
+
+
+
+
+    void saveKeluar(String id_barang, String id_user, String tgl_keluar, String total_keluar) {
+        view.showProgress();
+        disposable.add(
+                apiInterface.saveKeluar(id_barang, id_user, tgl_keluar, total_keluar)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<KeluarResponse>() {
@@ -50,10 +114,10 @@ public class KeluarPresenter {
         );
     }
 
-    void updateKeluar(String id_keluar, String id_user, String tgl_keluar, String total_keluar) {
+    void updateKeluar(String id_keluar, String id_barang, String id_user, String tgl_keluar, String total_keluar) {
         view.showProgress();
         disposable.add(
-                apiInterface.updateKeluar(id_keluar, id_user, tgl_keluar, total_keluar)
+                apiInterface.updateKeluar(id_keluar, id_barang, id_user, tgl_keluar, total_keluar)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableCompletableObserver(){

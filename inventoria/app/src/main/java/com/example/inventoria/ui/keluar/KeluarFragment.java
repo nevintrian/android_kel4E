@@ -164,8 +164,9 @@ public class KeluarFragment extends Fragment implements KeluarView {
                         Intent intent = new Intent(getActivity(), KeluarActivity.class);
 
                         intent.putExtra("id_keluar", keluar.getId_keluar());
+                        intent.putExtra("id_barang", keluar.getId_barang());
                         intent.putExtra("id_user", keluar.getId_user());
-                        intent.putExtra("tgl_keluar", keluar.getTgl_keluar());
+                        intent.putExtra("qty_keluar", keluar.getQty_keluar());
                         intent.putExtra("total_keluar", keluar.getTotal_keluar());
 
                         startActivityForResult(intent, REQUEST_UPDATE);

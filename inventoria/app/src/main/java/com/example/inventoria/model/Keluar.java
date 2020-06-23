@@ -12,8 +12,20 @@ public class Keluar {
     @SerializedName("id_user")
     String id_user;
     @Expose
+    @SerializedName("nama")
+    String nama;
+    @Expose
+    @SerializedName("id_barang")
+    String id_barang;
+    @Expose
+    @SerializedName("nama_barang")
+    String nama_barang;
+    @Expose
     @SerializedName("tgl_keluar")
     String tgl_keluar;
+    @Expose
+    @SerializedName("qty_keluar")
+    String qty_keluar;
     @Expose
     @SerializedName("total_keluar")
     String total_keluar;
@@ -32,11 +44,27 @@ public class Keluar {
 
     public void setId_user(String id_user) { this.id_user = id_user; }
 
-    public String getTgl_keluar() {
-        return tgl_keluar;
+    public String getNama() {
+        return nama;
     }
 
+    public void setNama(String nama) { this.nama = nama; }
+
+    public String getId_barang() { return id_barang; }
+
+    public void setId_barang(String id_barang) { this.id_barang = id_barang; }
+
+    public String getNama_barang() { return nama_barang; }
+
+    public void setNama_barang(String nama_barang) { this.nama_barang = nama_barang; }
+
+    public String getTgl_keluar() { return tgl_keluar; }
+
     public void setTgl_keluar(String tgl_keluar) { this.tgl_keluar = tgl_keluar; }
+
+    public String getQty_keluar() { return qty_keluar; }
+
+    public void setQty_keluar(String qty_keluar) { this.qty_keluar = qty_keluar; }
 
     public String getTotal_keluar() { return total_keluar; }
 

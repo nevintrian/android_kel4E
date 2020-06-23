@@ -2,7 +2,9 @@ package com.example.inventoria.ui.masuk.editor;
 
 import com.example.inventoria.network.ApiClient;
 import com.example.inventoria.network.ApiInterface;
+import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.network.response.MasukResponse;
+import com.example.inventoria.network.response.SupplierResponse;
 import com.example.inventoria.ui.masuk.editor.MasukView;
 
 
@@ -24,10 +26,68 @@ public class MasukPresenter {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
 
-    void saveMasuk(String id_supplier, String tgl_masuk, String total_masuk) {
+
+    void getListSupplier() {
         view.showProgress();
         disposable.add(
-                apiInterface.saveMasuk(id_supplier, tgl_masuk, total_masuk)
+                apiInterface.getSupplierList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<SupplierResponse>(){
+                            @Override
+                            public void onNext(SupplierResponse supplierResponse) {
+                                view.setListSupplier(supplierResponse);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.hideProgress();
+                                view.statusError(e.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                view.hideProgress();
+                            }
+                        })
+        );
+    }
+
+
+
+    void getListBarang() {
+        view.showProgress();
+        disposable.add(
+                apiInterface.getBarangList()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<BarangResponse>(){
+                            @Override
+                            public void onNext(BarangResponse barangResponse) {
+                                view.setListBarang(barangResponse);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                view.hideProgress();
+                                view.statusError(e.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                view.hideProgress();
+                            }
+                        })
+        );
+    }
+
+
+
+
+    void saveMasuk(String id_barang, String id_supplier, String tgl_masuk, String total_masuk) {
+        view.showProgress();
+        disposable.add(
+                apiInterface.saveMasuk(id_barang, id_supplier, tgl_masuk, total_masuk)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<MasukResponse>() {
@@ -50,10 +110,10 @@ public class MasukPresenter {
         );
     }
 
-    void updateMasuk(String id_masuk, String id_supplier, String tgl_masuk, String total_masuk) {
+    void updateMasuk(String id_masuk, String id_barang, String id_supplier, String tgl_masuk, String total_masuk) {
         view.showProgress();
         disposable.add(
-                apiInterface.updateMasuk(id_masuk, id_supplier, tgl_masuk, total_masuk)
+                apiInterface.updateMasuk(id_masuk, id_barang, id_supplier, tgl_masuk, total_masuk)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableCompletableObserver(){

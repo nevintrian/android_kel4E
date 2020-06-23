@@ -53,9 +53,10 @@ public class KeluarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if (getItemViewType(i) == TYPE_LIST){
             ListHolder listHolder = (ListHolder) viewHolder;
-            listHolder.id_keluar.setText(keluar.getId_keluar());
-            listHolder.id_user.setText(keluar.getId_user());
+            listHolder.nama_barang.setText(keluar.getNama_barang());
+            listHolder.nama.setText(keluar.getNama());
             listHolder.tgl_keluar.setText(keluar.getTgl_keluar());
+            listHolder.qty_keluar.setText(keluar.getQty_keluar());
             listHolder.total_keluar.setText(keluar.getTotal_keluar());
         }
     }
@@ -75,13 +76,14 @@ public class KeluarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     static class ListHolder extends RecyclerView.ViewHolder {
-        TextView id_keluar, id_user, tgl_keluar, total_keluar;
+        TextView nama_barang, nama, tgl_keluar, qty_keluar, total_keluar;
 
         public ListHolder(@NonNull View itemView) {
             super(itemView);
-            id_keluar = itemView.findViewById(R.id.id_keluar);
-            id_user = itemView.findViewById(R.id.id_user);
+            nama_barang = itemView.findViewById(R.id.nama_barang);
+            nama = itemView.findViewById(R.id.nama);
             tgl_keluar = itemView.findViewById(R.id.tgl_keluar);
+            qty_keluar = itemView.findViewById(R.id.qty_keluar);
             total_keluar = itemView.findViewById(R.id.total_keluar);
         }
     }

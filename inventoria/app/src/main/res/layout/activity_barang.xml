@@ -30,20 +30,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
-        <com.google.android.material.textfield.TextInputLayout
+        <TextView
+            android:text="Pilih Supplier :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+        <Spinner
+            android:id="@+id/nama_supplier"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/id_supplier"
-                android:hint="Id Supplier"
-
-                android:enabled="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
