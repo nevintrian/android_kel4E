@@ -38,6 +38,7 @@
         <EditText
             android:id="@+id/qty"
             android:hint="Qty"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -51,6 +52,7 @@
         <EditText
             android:id="@+id/total_masuk"
             android:hint="Total"
+            android:enabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"/>

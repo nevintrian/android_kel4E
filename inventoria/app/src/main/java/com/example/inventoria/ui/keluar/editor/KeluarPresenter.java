@@ -97,7 +97,8 @@ public class KeluarPresenter {
                         .subscribeWith(new DisposableObserver<KeluarResponse>() {
                             @Override
                             public void onNext(KeluarResponse keluarResponse) {
-                                view.statusSuccess(keluarResponse.getMessage());
+                                view.hideProgress();
+                                view.statusSuccess("berhasil ditambahkan");
                             }
 
                             @Override

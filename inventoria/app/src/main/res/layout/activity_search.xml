@@ -5,8 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.search.SearchActivity">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -37,7 +36,7 @@
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:completionThreshold="1"
-                    android:hint="Search Penjualan"
+                    android:hint="Search"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:maxLines="1"

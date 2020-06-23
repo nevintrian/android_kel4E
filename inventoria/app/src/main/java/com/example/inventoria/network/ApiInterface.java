@@ -311,7 +311,7 @@ public interface ApiInterface {
     Observable<MasukResponse> saveMasuk(
             @Field("id_barang") String id_barang,
             @Field("id_supplier") String id_supplier,
-            @Field("qty_masuk") String tgl_masuk,
+            @Field("qty_masuk") String qty_masuk,
             @Field("total_masuk") String total_masuk);
 
     @FormUrlEncoded
@@ -320,11 +320,11 @@ public interface ApiInterface {
             @Path("id_masuk") String id_masuk,
             @Field("id_barang") String id_barang,
             @Field("id_supplier") String id_supplier,
-            @Field("qty_masuk") String tgl_masuk,
+            @Field("qty_masuk") String qty_masuk,
             @Field("total_masuk") String total_masuk);
 
     @DELETE("masuk/{id_masuk}")
-    Completable deleteMasuk(@Path("id_masuk") String id_supplier);
+    Completable deleteMasuk(@Path("id_masuk") String id_masuk);
 
 
 
@@ -341,7 +341,7 @@ public interface ApiInterface {
     Observable<KeluarResponse> saveKeluar(
             @Field("id_barang") String id_barang,
             @Field("id_user") String id_user,
-            @Field("tgl_keluar") String tgl_keluar,
+            @Field("qty_keluar") String qty_keluar,
             @Field("total_keluar") String total_keluar);
 
     @FormUrlEncoded
@@ -350,11 +350,11 @@ public interface ApiInterface {
             @Path("id_keluar") String id_keluar,
             @Field("id_barang") String id_barang,
             @Field("id_user") String id_user,
-            @Field("tgl_keluar") String tgl_keluar,
+            @Field("qty_keluar") String qty_keluar,
             @Field("total_keluar") String total_keluar);
 
     @DELETE("keluar/{id_keluar}")
-    Completable deleteKeluar(@Path("id_keluar") String id_supplier);
+    Completable deleteKeluar(@Path("id_keluar") String id_keluar);
 
 
     @GET("supplier/list")

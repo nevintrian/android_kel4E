@@ -28,7 +28,6 @@ import com.example.inventoria.ui.pelanggan.PelangganFragment;
 
 import com.example.inventoria.ui.profil.ProfilFragment;
 import com.example.inventoria.ui.sales.SalesFragment;
-import com.example.inventoria.ui.search.SearchActivity;
 import com.example.inventoria.ui.supplier.SupplierFragment;
 import com.example.inventoria.ui.user.UserFragment;
 import com.google.android.material.navigation.NavigationView;

@@ -93,7 +93,8 @@ public class MasukPresenter {
                         .subscribeWith(new DisposableObserver<MasukResponse>() {
                             @Override
                             public void onNext(MasukResponse masukResponse) {
-                                view.statusSuccess(masukResponse.getMessage());
+                                view.hideProgress();
+                                view.statusSuccess("berhasil ditambahkan");
                             }
 
                             @Override
