@@ -26,6 +26,7 @@ import com.example.inventoria.tools.SimpleDividerItemDecoration;
 import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.gudang.editor.GudangActivity;
 
+import com.example.inventoria.ui.gudang.search.SearchActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -155,6 +156,7 @@ public class GudangFragment extends Fragment implements GudangView {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search, menu);
         inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
@@ -162,8 +164,9 @@ public class GudangFragment extends Fragment implements GudangView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-        if (item.getItemId() == R.id.cetak) {
+        if (item.getItemId() == R.id.search) {
+            startActivity(new Intent(getActivity(), SearchActivity.class));
+        } else if (item.getItemId() == R.id.cetak) {
 
             Intent intent = new Intent();
             intent.setDataAndType(Uri.parse(Url.URL + "gudang/cetak_pdf"), "application/pdf");

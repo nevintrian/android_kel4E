@@ -328,8 +328,7 @@ public interface ApiInterface {
 
 
 
-    @GET("keluar")
-    Observable<KeluarResponse> getKeluar(@Query("search") String search);
+
     //Supplier CRUD
     @GET("keluar")
     Observable<KeluarResponse> getKeluars();
@@ -370,4 +369,22 @@ public interface ApiInterface {
         //    Call<BarangResponse> getBarangList(@Header("Authorization") String token);
     Observable<BarangResponse> getBarangList();
 
+
+
+    @GET("keluar")
+    Observable<KeluarResponse> getKeluar(@Query("search") String search);
+    @GET("masuk")
+    Observable<MasukResponse> getMasuk(@Query("search") String search);
+    @GET("user")
+    Observable<UserResponse> getUser(@Query("search") String search);
+    @GET("gudang")
+    Observable<UserResponse> getGudang(@Query("search") String search);
+    @GET("sales")
+    Observable<UserResponse> getSales(@Query("search") String search);
+    @GET("pelanggan")
+    Observable<UserResponse> getPelanggan(@Query("search") String search);
+    @GET("supplier")
+    Observable<SupplierResponse> getSupplier(@Query("search") String search);
+    @GET("barang")
+    Observable<BarangResponse> getBarang(@Query("search") String search);
 }

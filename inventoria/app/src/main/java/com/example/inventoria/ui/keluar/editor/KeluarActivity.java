@@ -3,6 +3,7 @@ package com.example.inventoria.ui.keluar.editor;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,7 @@ import com.example.inventoria.network.response.SupplierResponse;
 import com.example.inventoria.network.response.UserResponse;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.ui.barang.editor.SpinnerSupplierAdapter;
+import com.example.inventoria.ui.gudang.editor.GudangActivity;
 import com.example.inventoria.ui.keluar.editor.KeluarPresenter;
 import com.example.inventoria.ui.keluar.editor.KeluarView;
 import com.example.inventoria.ui.masuk.editor.SpinnerBarangAdapter;
@@ -36,7 +38,7 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
     KeluarPresenter presenter;
     ProgressDialog progressDialog;
     SessionManager session;
-
+    Boolean CheckEditText;
     String id_keluar, id_user, nama, id_barang, nama_barang, qty, total_keluar, harga;
 
     @BindView(R.id.nama)
@@ -125,24 +127,38 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
 
 
     @OnClick(R.id.simpan) void simpan(){
-        presenter.saveKeluar(
+        CheckEditTextIsEmptyOrNot();
 
-                id_barang,
-                id_user,
-                et_qty.getText().toString(),
-                et_total_keluar.getText().toString()
-        );
+        if (CheckEditText) {
+            presenter.saveKeluar(
+
+                    id_barang,
+                    id_user,
+                    et_qty.getText().toString(),
+                    et_total_keluar.getText().toString()
+            );
+        }else{
+            Toast.makeText(KeluarActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+        }
     }
 
     @OnClick(R.id.update) void update() {
-        presenter.updateKeluar(
+        CheckEditTextIsEmptyOrNot();
 
-                id_keluar,
-                id_barang,
-                id_user,
-                et_qty.getText().toString(),
-                et_total_keluar.getText().toString()
-        );
+        if (CheckEditText) {
+            presenter.updateKeluar(
+
+                    id_keluar,
+                    id_barang,
+                    id_user,
+                    et_qty.getText().toString(),
+                    et_total_keluar.getText().toString()
+            );
+        }else{
+            Toast.makeText(KeluarActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+        }
     }
 
 
@@ -221,6 +237,27 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
             getSupportActionBar().setTitle("Simpan data");
         }
     }
+
+
+
+    public void CheckEditTextIsEmptyOrNot() {
+
+
+        // Getting values from EditText.
+        String qty1 = et_qty.getText().toString().trim();
+        // Checking whether EditText value is empty or not.
+        if (TextUtils.isEmpty(qty1)) {
+
+            // If any of EditText is empty then set variable value as False.
+            CheckEditText = false;
+
+        } else {
+
+            // If any of EditText is filled then set variable value as True.
+            CheckEditText = true;
+        }
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 

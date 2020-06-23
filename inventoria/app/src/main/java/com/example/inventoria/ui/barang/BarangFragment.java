@@ -26,6 +26,7 @@ import com.example.inventoria.tools.SimpleDividerItemDecoration;
 import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.editor.BarangActivity;
 
+import com.example.inventoria.ui.barang.search.SearchActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -152,6 +153,7 @@ public class BarangFragment extends Fragment implements BarangView {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search, menu);
         inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
@@ -159,8 +161,9 @@ public class BarangFragment extends Fragment implements BarangView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-        if (item.getItemId() == R.id.cetak) {
+        if (item.getItemId() == R.id.search) {
+            startActivity(new Intent(getActivity(), SearchActivity.class));
+        } else if (item.getItemId() == R.id.cetak) {
 
             Intent intent = new Intent();
             intent.setDataAndType(Uri.parse(Url.URL + "barang/cetak_pdf"), "application/pdf");

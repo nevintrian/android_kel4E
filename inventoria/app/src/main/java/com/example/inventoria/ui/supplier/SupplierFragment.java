@@ -24,6 +24,7 @@ import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.network.response.SupplierResponse;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
 import com.example.inventoria.tools.Url;
+import com.example.inventoria.ui.supplier.search.SearchActivity;
 import com.example.inventoria.ui.supplier.editor.SupplierActivity;
 
 
@@ -184,6 +185,7 @@ public class SupplierFragment extends Fragment implements SupplierView{
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search, menu);
         inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
@@ -191,8 +193,9 @@ public class SupplierFragment extends Fragment implements SupplierView{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-        if (item.getItemId() == R.id.cetak) {
+        if (item.getItemId() == R.id.search) {
+            startActivity(new Intent(getActivity(), SearchActivity.class));
+        } else if (item.getItemId() == R.id.cetak) {
 
             Intent intent = new Intent();
             intent.setDataAndType(Uri.parse(Url.URL + "supplier/cetak_pdf"), "application/pdf");

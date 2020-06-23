@@ -2,8 +2,12 @@ package com.example.inventoria.ui.home;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -20,12 +24,14 @@ import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.BarangAdapter;
 import com.example.inventoria.ui.barang.BarangPresenter;
 import com.example.inventoria.ui.barang.BarangView;
 import com.example.inventoria.ui.barang.editor.BarangActivity;
 
 import com.example.inventoria.ui.home.editor.HomeActivity;
+import com.example.inventoria.ui.home.search.SearchActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -66,7 +72,7 @@ public class HomeFragment extends Fragment implements HomeView {
         View x = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, x );
         getActivity().setTitle("Halaman Utama");
-
+        setHasOptionsMenu(true);
         session = new SessionManager(getActivity());
         presenter = new HomePresenter(this);
         presenter.getBarang();
@@ -144,5 +150,21 @@ public class HomeFragment extends Fragment implements HomeView {
     public void onDestroy() {
         super.onDestroy();
         presenter.detachView();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.search) {
+            startActivity(new Intent(getActivity(), SearchActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

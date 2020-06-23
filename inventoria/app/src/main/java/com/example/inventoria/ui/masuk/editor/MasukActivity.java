@@ -3,6 +3,7 @@ package com.example.inventoria.ui.masuk.editor;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +33,7 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
     MasukPresenter presenter;
     ProgressDialog progressDialog;
     SessionManager session;
-
+    Boolean CheckEditText;
     String id_masuk, nama_supplier, id_supplier, qty, total_masuk, nama_barang, harga, id_barang;
 
 
@@ -120,25 +121,39 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
     }
 
 
-    @OnClick(R.id.simpan) void simpan(){
-        presenter.saveMasuk(
+    @OnClick(R.id.simpan) void simpan() {
+        CheckEditTextIsEmptyOrNot();
 
-                id_barang,
-                id_supplier,
-                et_qty.getText().toString(),
-                et_total_masuk.getText().toString()
-        );
+        if (CheckEditText) {
+            presenter.saveMasuk(
+
+                    id_barang,
+                    id_supplier,
+                    et_qty.getText().toString(),
+                    et_total_masuk.getText().toString()
+            );
+        }else{
+            Toast.makeText(MasukActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+        }
     }
 
     @OnClick(R.id.update) void update() {
-        presenter.updateMasuk(
+        CheckEditTextIsEmptyOrNot();
 
-                id_masuk,
-                id_barang,
-                id_supplier,
-                et_qty.getText().toString(),
-                et_total_masuk.getText().toString()
-        );
+        if (CheckEditText) {
+            presenter.updateMasuk(
+
+                    id_masuk,
+                    id_barang,
+                    id_supplier,
+                    et_qty.getText().toString(),
+                    et_total_masuk.getText().toString()
+            );
+        }else{
+            Toast.makeText(MasukActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+        }
     }
 
 
@@ -217,6 +232,26 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
             getSupportActionBar().setTitle("Simpan data");
         }
     }
+
+
+    public void CheckEditTextIsEmptyOrNot() {
+
+
+        // Getting values from EditText.
+        String qty1 = et_qty.getText().toString().trim();
+        // Checking whether EditText value is empty or not.
+        if (TextUtils.isEmpty(qty1)) {
+
+            // If any of EditText is empty then set variable value as False.
+            CheckEditText = false;
+
+        } else {
+
+            // If any of EditText is filled then set variable value as True.
+            CheckEditText = true;
+        }
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 

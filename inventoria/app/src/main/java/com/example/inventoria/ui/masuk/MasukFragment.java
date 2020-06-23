@@ -28,6 +28,7 @@ import com.example.inventoria.ui.masuk.MasukAdapter;
 import com.example.inventoria.ui.masuk.MasukPresenter;
 import com.example.inventoria.ui.masuk.MasukView;
 import com.example.inventoria.ui.masuk.editor.MasukActivity;
+import com.example.inventoria.ui.masuk.search.SearchActivity;
 
 
 import java.util.ArrayList;
@@ -188,6 +189,7 @@ public class MasukFragment extends Fragment implements MasukView {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search, menu);
         inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
@@ -195,8 +197,9 @@ public class MasukFragment extends Fragment implements MasukView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-        if (item.getItemId() == R.id.cetak) {
+        if (item.getItemId() == R.id.search) {
+            startActivity(new Intent(getActivity(), SearchActivity.class));
+        } else if (item.getItemId() == R.id.cetak) {
 
             Intent intent = new Intent();
             intent.setDataAndType(Uri.parse(Url.URL + "masuk/cetak_pdf"), "application/pdf");

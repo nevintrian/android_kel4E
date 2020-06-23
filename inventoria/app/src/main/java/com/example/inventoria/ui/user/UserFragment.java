@@ -24,6 +24,7 @@ import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
 import com.example.inventoria.tools.Url;
+import com.example.inventoria.ui.user.search.SearchActivity;
 import com.example.inventoria.ui.user.editor.UserActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -153,6 +154,7 @@ public class UserFragment extends Fragment implements UserView {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search, menu);
         inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
@@ -160,8 +162,9 @@ public class UserFragment extends Fragment implements UserView {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-        if (item.getItemId() == R.id.cetak) {
+        if (item.getItemId() == R.id.search) {
+            startActivity(new Intent(getActivity(), SearchActivity.class));
+        } else if (item.getItemId() == R.id.cetak) {
 
             Intent intent = new Intent();
             intent.setDataAndType(Uri.parse(Url.URL + "user/cetak_pdf"), "application/pdf");

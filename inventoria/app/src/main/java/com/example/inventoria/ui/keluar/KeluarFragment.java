@@ -30,7 +30,7 @@ import com.example.inventoria.ui.keluar.KeluarAdapter;
 import com.example.inventoria.ui.keluar.KeluarPresenter;
 import com.example.inventoria.ui.keluar.KeluarView;
 import com.example.inventoria.ui.keluar.editor.KeluarActivity;
-import com.example.inventoria.ui.search.SearchActivity;
+import com.example.inventoria.ui.keluar.search.SearchActivity;
 
 
 import java.util.ArrayList;
