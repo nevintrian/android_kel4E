@@ -2,8 +2,12 @@ package com.example.inventoria.ui.pelanggan;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import com.example.inventoria.network.response.UserResponse;
 import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.pelanggan.editor.PelangganActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,7 +67,7 @@ public class PelangganFragment extends Fragment implements PelangganView {
         View x = inflater.inflate(R.layout.fragment_pelanggan, container, false);
         ButterKnife.bind(this, x );
         getActivity().setTitle("Data Pelanggan");
-
+        setHasOptionsMenu(true);
         session = new SessionManager(getActivity());
         presenter = new PelangganPresenter(this);
         presenter.getPelanggan();
@@ -145,4 +150,25 @@ public class PelangganFragment extends Fragment implements PelangganView {
         super.onDestroy();
         presenter.detachView();
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        if (item.getItemId() == R.id.cetak) {
+
+            Intent intent = new Intent();
+            intent.setDataAndType(Uri.parse(Url.URL + "pelanggan/cetak_pdf"), "application/pdf");
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

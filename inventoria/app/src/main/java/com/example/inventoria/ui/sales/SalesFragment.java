@@ -2,8 +2,12 @@ package com.example.inventoria.ui.sales;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -19,8 +23,10 @@ import com.example.inventoria.network.response.UserResponse;
 import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.sales.editor.SalesActivity;
 
+import com.example.inventoria.ui.search.SearchActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -66,7 +72,7 @@ public class SalesFragment extends Fragment implements SalesView {
         session = new SessionManager(getActivity());
         presenter = new SalesPresenter(this);
         presenter.getSales();
-
+        setHasOptionsMenu(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -78,6 +84,7 @@ public class SalesFragment extends Fragment implements SalesView {
 
         return x;
     }
+
 
     @OnClick(R.id.fab) void editor() {
         Intent intent = new Intent(getActivity(), SalesActivity.class);
@@ -144,5 +151,28 @@ public class SalesFragment extends Fragment implements SalesView {
     public void onDestroy() {
         super.onDestroy();
         presenter.detachView();
+
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        if (item.getItemId() == R.id.cetak) {
+
+            Intent intent = new Intent();
+            intent.setDataAndType(Uri.parse(Url.URL + "sales/cetak_pdf"), "application/pdf");
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

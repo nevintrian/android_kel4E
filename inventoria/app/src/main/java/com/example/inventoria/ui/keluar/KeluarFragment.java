@@ -1,9 +1,14 @@
 package com.example.inventoria.ui.keluar;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -13,16 +18,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.inventoria.MainActivity;
 import com.example.inventoria.R;
 import com.example.inventoria.model.Keluar;
 import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.network.response.KeluarResponse;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.keluar.KeluarAdapter;
 import com.example.inventoria.ui.keluar.KeluarPresenter;
 import com.example.inventoria.ui.keluar.KeluarView;
 import com.example.inventoria.ui.keluar.editor.KeluarActivity;
+import com.example.inventoria.ui.search.SearchActivity;
 
 
 import java.util.ArrayList;
@@ -67,7 +75,7 @@ public class KeluarFragment extends Fragment implements KeluarView {
         session = new SessionManager(getActivity());
         ButterKnife.bind(this, x);
         getActivity().setTitle("Transaksi Keluar");
-
+        setHasOptionsMenu(true);
         onSetRecyclerView();
         onClickRecylerView();
 
@@ -179,4 +187,34 @@ public class KeluarFragment extends Fragment implements KeluarView {
         super.onDestroy();
         presenter.detachView();
     }
+
+
+
+
+
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search, menu);
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        if (item.getItemId() == R.id.search) {
+            startActivity(new Intent(getActivity(), SearchActivity.class));
+        } else if (item.getItemId() == R.id.cetak) {
+
+            Intent intent = new Intent();
+            intent.setDataAndType(Uri.parse(Url.URL + "keluar/cetak_pdf"), "application/pdf");
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

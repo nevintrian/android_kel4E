@@ -2,8 +2,12 @@ package com.example.inventoria.ui.supplier;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.network.response.SupplierResponse;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.supplier.editor.SupplierActivity;
 
 
@@ -64,7 +69,7 @@ public class SupplierFragment extends Fragment implements SupplierView{
         session = new SessionManager(getActivity());
         ButterKnife.bind(this, x);
         getActivity().setTitle("Data Supplier");
-
+        setHasOptionsMenu(true);
         onSetRecyclerView();
         onClickRecylerView();
 
@@ -174,5 +179,26 @@ public class SupplierFragment extends Fragment implements SupplierView{
     public void onDestroy() {
         super.onDestroy();
         presenter.detachView();
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        if (item.getItemId() == R.id.cetak) {
+
+            Intent intent = new Intent();
+            intent.setDataAndType(Uri.parse(Url.URL + "supplier/cetak_pdf"), "application/pdf");
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

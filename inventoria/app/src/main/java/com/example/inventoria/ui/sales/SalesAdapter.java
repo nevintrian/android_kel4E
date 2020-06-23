@@ -87,4 +87,6 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.ViewHolder> 
             foto = itemView.findViewById(R.id.foto);
         }
     }
+
+
 }

@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -424,6 +425,8 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
             CheckEditText = true;
         }
     }
+
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 

@@ -2,8 +2,12 @@ package com.example.inventoria.ui.barang;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.editor.BarangActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -66,7 +71,7 @@ public class BarangFragment extends Fragment implements BarangView {
         session = new SessionManager(getActivity());
         presenter = new BarangPresenter(this);
         presenter.getBarang();
-
+        setHasOptionsMenu(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -144,4 +149,25 @@ public class BarangFragment extends Fragment implements BarangView {
         super.onDestroy();
         presenter.detachView();
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        if (item.getItemId() == R.id.cetak) {
+
+            Intent intent = new Intent();
+            intent.setDataAndType(Uri.parse(Url.URL + "barang/cetak_pdf"), "application/pdf");
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

@@ -65,6 +65,7 @@
         </activity>
         <activity android:name=".ui.keluar.editor.KeluarActivity">
         </activity>
+
         <activity
             android:name=".ui.search.SearchActivity"
             android:label="@string/title_activity_search"

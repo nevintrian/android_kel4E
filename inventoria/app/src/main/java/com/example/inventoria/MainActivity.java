@@ -165,26 +165,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-
-
-        getMenuInflater().inflate(R.menu.search, menu);
-        getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-
-            if (item.getItemId() == R.id.search) {
-                startActivity(new Intent(MainActivity.this, SearchActivity.class));
-            }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 }
