@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -89,7 +90,7 @@ public class ProfilActivity extends AppCompatActivity implements ProfilView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
         ButterKnife.bind(this);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading ...");
 
@@ -328,5 +329,12 @@ public class ProfilActivity extends AppCompatActivity implements ProfilView {
         Log.d("currentPhotoPath : ", currentPhotoPath);
         return mediaFile;
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
 }

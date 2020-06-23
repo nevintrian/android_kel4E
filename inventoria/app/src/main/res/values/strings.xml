@@ -13,6 +13,7 @@
     <string name="menu_supplier">Supplier</string>
     <string name="menu_user">User</string>
 
+    <string name="title_activity_search">SearchActivity</string>
 
     <string name="home_second">Home Second</string>
 

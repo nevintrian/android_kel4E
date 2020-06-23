@@ -3,6 +3,7 @@ package com.example.inventoria.ui.keluar.editor;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -60,7 +61,7 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keluar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
 
         session = new SessionManager(this);
@@ -219,5 +220,13 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
         } else {
             getSupportActionBar().setTitle("Simpan data");
         }
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 }

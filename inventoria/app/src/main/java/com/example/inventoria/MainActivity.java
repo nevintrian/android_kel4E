@@ -2,6 +2,7 @@ package com.example.inventoria;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ import com.example.inventoria.ui.pelanggan.PelangganFragment;
 
 import com.example.inventoria.ui.profil.ProfilFragment;
 import com.example.inventoria.ui.sales.SalesFragment;
+import com.example.inventoria.ui.search.SearchActivity;
 import com.example.inventoria.ui.supplier.SupplierFragment;
 import com.example.inventoria.ui.user.UserFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -161,5 +163,28 @@ public class MainActivity extends AppCompatActivity
         super.onActivityReenter(resultCode, data);
     }
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+
+        getMenuInflater().inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+            if (item.getItemId() == R.id.search) {
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+            }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

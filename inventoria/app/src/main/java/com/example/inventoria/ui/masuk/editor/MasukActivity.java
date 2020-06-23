@@ -3,6 +3,7 @@ package com.example.inventoria.ui.masuk.editor;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -59,7 +60,7 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
         setContentView(R.layout.activity_masuk);
 
         ButterKnife.bind(this);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         session = new SessionManager(this);
 
         progressDialog = new ProgressDialog(this);
@@ -215,5 +216,13 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
         } else {
             getSupportActionBar().setTitle("Simpan data");
         }
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 }

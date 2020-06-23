@@ -66,6 +66,12 @@
         <activity android:name=".ui.keluar.editor.KeluarActivity">
         </activity>
         <activity
+            android:name=".ui.search.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

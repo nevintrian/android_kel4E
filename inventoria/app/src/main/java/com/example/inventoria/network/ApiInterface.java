@@ -328,7 +328,8 @@ public interface ApiInterface {
 
 
 
-
+    @GET("keluar")
+    Observable<KeluarResponse> getKeluar(@Query("search") String search);
     //Supplier CRUD
     @GET("keluar")
     Observable<KeluarResponse> getKeluars();

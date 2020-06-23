@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -92,7 +93,7 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barang);
         ButterKnife.bind(this);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading ...");
 
@@ -434,5 +435,12 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
             CheckEditText = true;
         }
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
 }
