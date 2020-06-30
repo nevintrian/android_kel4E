@@ -2,8 +2,11 @@ package com.example.inventoria.ui.keluar.editor;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,10 +23,12 @@ import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.network.response.SupplierResponse;
 import com.example.inventoria.network.response.UserResponse;
 import com.example.inventoria.tools.SessionManager;
+import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.editor.SpinnerSupplierAdapter;
 import com.example.inventoria.ui.gudang.editor.GudangActivity;
 import com.example.inventoria.ui.keluar.editor.KeluarPresenter;
 import com.example.inventoria.ui.keluar.editor.KeluarView;
+import com.example.inventoria.ui.keluar.search.SearchActivity;
 import com.example.inventoria.ui.masuk.editor.SpinnerBarangAdapter;
 
 
@@ -233,9 +238,16 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
 
             content_update.setVisibility(View.VISIBLE);
             content_simpan.setVisibility(View.GONE);
-        } else {
+        } else if (id_keluar==null && id_barang!=null) {
+            getSupportActionBar().setTitle("Simpan data");
+            s_nama1.setSelection(adapter.getItemIndexById(id_barang));
+            s_nama.setSelection(adapter.getItemIndexById(id_user));
+            content_update.setVisibility(View.GONE);
+            content_simpan.setVisibility(View.VISIBLE);
+        }else {
             getSupportActionBar().setTitle("Simpan data");
         }
+
     }
 
 
@@ -257,13 +269,33 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
             CheckEditText = true;
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        if (id_keluar != null) {
+            inflater.inflate(R.menu.main, menu);
+        }
+        // return true so that the menu pop up is opened
+        return true;
+    }
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == android.R.id.home) {
+
+        if (id == R.id.cetak) {
+            Intent intent = new Intent();
+            intent.setDataAndType(Uri.parse(Url.URL + "keluar/cetak_penjualan/" + id_keluar), "application/pdf");
+            startActivity(intent);
+
+        }else if (id == android.R.id.home) {
             finish();
         }
         return true;
     }
+
+
+
+
 }

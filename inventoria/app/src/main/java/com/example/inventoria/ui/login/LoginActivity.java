@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.inventoria.MainActivity;
+import com.example.inventoria.MainActivity1;
 import com.example.inventoria.R;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.Url;
@@ -123,24 +124,24 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                         // Matching server responce message to our text.
                         JSONObject obj = new JSONObject(ServerResponse);
-                        if(obj.optString("status").equals("true")){
-
-
-                            // If response matched then show the toast.
-                            Toast.makeText(LoginActivity.this, obj.optString("message")+"", Toast.LENGTH_SHORT).show();
-
-
-
-
-                            // Finish the current Login activity.
+                        if(obj.optString("status").equals("true")) {
+                            Toast.makeText(LoginActivity.this, obj.optString("message") + "", Toast.LENGTH_SHORT).show();
                             finish();
+                            if (obj.optString("level").equals("admin") || obj.optString("level").equals("admin")) {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                            // Opening the user profile activity using intent.
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                // Sending User Username to another activity using intent.
 
-                            // Sending User Username to another activity using intent.
+                                startActivity(intent);
 
-                            startActivity(intent);
+
+                            } else if (obj.optString("level").equals("customer") || obj.optString("level").equals("sales")) {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity1.class);
+
+                                // Sending User Username to another activity using intent.
+
+                                startActivity(intent);
+                            }
                         }
                             sessionManager = new SessionManager(getApplicationContext());
                             sessionManager.createLoginSession(

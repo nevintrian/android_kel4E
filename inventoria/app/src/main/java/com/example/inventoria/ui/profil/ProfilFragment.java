@@ -2,8 +2,12 @@ package com.example.inventoria.ui.profil;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -19,6 +23,8 @@ import com.example.inventoria.network.response.UserResponse;
 import com.example.inventoria.tools.RecyclerItemClickListener;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.SimpleDividerItemDecoration;
+import com.example.inventoria.tools.Url;
+import com.example.inventoria.ui.keluar.search.SearchActivity;
 import com.example.inventoria.ui.profil.editor.ProfilActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -64,7 +70,7 @@ public class ProfilFragment extends Fragment implements ProfilView {
         session = new SessionManager(getActivity());
         presenter = new ProfilPresenter(this);
         presenter.getProfil(session.getKeyId_user());
-
+        setHasOptionsMenu(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -125,6 +131,23 @@ public class ProfilFragment extends Fragment implements ProfilView {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
+    @OnClick(R.id.fab_profil) void update(){
+        Intent intent = new Intent(getActivity(), ProfilActivity.class);
+
+        intent.putExtra("id_user", session.getKeyId_user());
+        intent.putExtra("email", session.getKeyEmail());
+        intent.putExtra("username", session.getKeyUsername());
+        intent.putExtra("password", session.getKeyPassword());
+        intent.putExtra("level", session.getKeyLevel());
+        intent.putExtra("nama", session.getKeyNama());
+        intent.putExtra("tgl_lahir", session.getKeyTgl_lahir());
+        intent.putExtra("jenis_kelamin", session.getKeyJenis_kelamin());
+        intent.putExtra("alamat", session.getKeyAlamat());
+        intent.putExtra("no_telp", session.getKeyNo_telp());
+        intent.putExtra("foto", session.getKeyFoto());
+        startActivityForResult(intent, REQUEST_UPDATE);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -140,4 +163,26 @@ public class ProfilFragment extends Fragment implements ProfilView {
         super.onDestroy();
         presenter.detachView();
     }
+
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.main1, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+      if (item.getItemId() == R.id.logout) {
+
+          session.logoutUser();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

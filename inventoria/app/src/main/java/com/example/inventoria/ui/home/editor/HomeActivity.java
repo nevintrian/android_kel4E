@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,11 +30,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.inventoria.BuildConfig;
 import com.example.inventoria.R;
+import com.example.inventoria.model.Barang;
 import com.example.inventoria.tools.FileUtils;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.editor.BarangPresenter;
 import com.example.inventoria.ui.barang.editor.BarangView;
+import com.example.inventoria.ui.keluar.editor.KeluarActivity;
 
 
 import java.io.File;
@@ -62,7 +65,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     static final int REQUEST_GALLERY = 1;
     static final int REQUEST_CAMERA = 2;
 
-
+    @BindView(R.id.update)
+    Button update;
     @BindView(R.id.id_supplier)
     TextView et_id_supplier;
     @BindView(R.id.nama_barang)
@@ -250,6 +254,24 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         Log.d("currentPhotoPath : ", currentPhotoPath);
         return mediaFile;
     }
+
+
+
+
+
+
+
+
+
+    @OnClick(R.id.update) void update(){
+        Intent intent = new Intent(HomeActivity.this, KeluarActivity.class);
+
+        intent.putExtra("id_barang", id_barang);
+        intent.putExtra("id_user", session.getKeyId_user());
+        startActivity(intent);
+    }
+
+
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 

@@ -1,27 +1,21 @@
 package com.example.inventoria;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import com.bumptech.glide.Glide;
 import com.example.inventoria.tools.SessionManager;
-
 import com.example.inventoria.tools.Url;
 import com.example.inventoria.ui.barang.BarangFragment;
 import com.example.inventoria.ui.cart.CartFragment;
@@ -30,8 +24,6 @@ import com.example.inventoria.ui.home.HomeFragment;
 import com.example.inventoria.ui.keluar.KeluarFragment;
 import com.example.inventoria.ui.masuk.MasukFragment;
 import com.example.inventoria.ui.pelanggan.PelangganFragment;
-
-import com.example.inventoria.ui.pelanggan.search.SearchActivity;
 import com.example.inventoria.ui.profil.ProfilFragment;
 import com.example.inventoria.ui.sales.SalesFragment;
 import com.example.inventoria.ui.supplier.SupplierFragment;
@@ -39,7 +31,7 @@ import com.example.inventoria.ui.user.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity1 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener{
 
     SessionManager sessionManager;
@@ -48,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         sessionManager = new SessionManager(getApplicationContext());
 
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main1);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,7 +58,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         }
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.addDrawerListener(toggle);
@@ -99,7 +91,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -184,7 +176,7 @@ public class MainActivity extends AppCompatActivity
             sessionManager.logoutUser();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout1);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
