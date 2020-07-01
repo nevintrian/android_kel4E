@@ -1,4 +1,4 @@
-package com.example.inventoria.ui.keluar;
+package com.example.inventoria.ui.konfirmasi;
 
 
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ import com.example.inventoria.model.Keluar;
 import java.util.List;
 
 
-public class KeluarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class KonfirmasiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public final int TYPE_LIST = 0 ;
     public final int TYPE_LOAD = 1 ;
@@ -26,7 +26,7 @@ public class KeluarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     boolean isLoading = false;
     boolean isMoreDataAvailable = true;
 
-    public KeluarAdapter(List<Keluar> keluars) {
+    public KonfirmasiAdapter(List<Keluar> keluars) {
         this.keluars = keluars;
     }
 
@@ -35,7 +35,7 @@ public class KeluarAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         if (i == TYPE_LIST) {
-            return new ListHolder(inflater.inflate(R.layout.list_keluar, viewGroup, false));
+            return new ListHolder(inflater.inflate(R.layout.list_konfirmasi, viewGroup, false));
         } else {
             return new LoadHolder(inflater.inflate(R.layout.list_loading, viewGroup, false));
         }

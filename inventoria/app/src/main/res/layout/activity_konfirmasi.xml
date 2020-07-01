@@ -17,6 +17,7 @@
     <Spinner
         android:id="@+id/nama_barang"
         android:layout_width="match_parent"
+        android:clickable="false"
         android:layout_height="wrap_content"/>
 
     <TextView
@@ -27,6 +28,7 @@
     <Spinner
         android:id="@+id/nama"
         android:layout_width="match_parent"
+        android:clickable="false"
         android:layout_height="wrap_content"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -38,6 +40,7 @@
             android:id="@+id/qty"
             android:hint="Qty"
             android:inputType="number"
+            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -51,8 +54,9 @@
         <EditText
             android:id="@+id/total_keluar"
             android:hint="Total"
-            android:focusable="false"
+
             android:layout_width="match_parent"
+            android:focusable="false"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"/>
 
@@ -93,7 +97,7 @@
 
         <Button
             android:id="@+id/hapus"
-            android:text="Hapus"
+            android:text="Batalkan"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
             android:layout_width="0dip"
@@ -102,7 +106,7 @@
 
         <Button
             android:id="@+id/update"
-            android:text="Update"
+            android:text="Konfirmasi"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
             android:layout_width="0dip"
@@ -111,27 +115,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/content_beli"
-        android:gravity="center|bottom"
-        android:visibility="gone"
-        android:layout_weight="1"
-        android:weightSum="1.0"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_marginBottom="10dp">
 
-        <Button
-            android:id="@+id/beli"
-            android:text="Beli"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#fff"
-            android:background="@drawable/rc"
-            android:layout_width="0dip" />
-
-
-    </LinearLayout>
 
 </LinearLayout>

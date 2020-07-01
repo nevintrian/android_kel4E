@@ -1,11 +1,11 @@
-package com.example.inventoria.ui.keluar.editor;
+package com.example.inventoria.ui.konfirmasi.editor;
 
 import com.example.inventoria.network.ApiClient;
 import com.example.inventoria.network.ApiInterface;
 import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.network.response.KeluarResponse;
 import com.example.inventoria.network.response.UserResponse;
-import com.example.inventoria.ui.keluar.editor.KeluarView;
+
 
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -14,13 +14,13 @@ import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class KeluarPresenter {
+public class KonfirmasiPresenter {
 
-    KeluarView view;
+    KonfirmasiView view;
     CompositeDisposable disposable;
     ApiInterface apiInterface;
 
-    public KeluarPresenter(KeluarView view) {
+    public KonfirmasiPresenter(KonfirmasiActivity view) {
         this.view = view;
         disposable = new CompositeDisposable();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -88,10 +88,10 @@ public class KeluarPresenter {
 
 
 
-    void saveKeluar(String id_barang, String id_user, String tgl_keluar, String total_keluar) {
+    void saveKonfirmasi(String id_barang, String id_user, String tgl_keluar, String total_keluar) {
         view.showProgress();
         disposable.add(
-                apiInterface.saveKeluar(id_barang, id_user, tgl_keluar, total_keluar)
+                apiInterface.saveKonfirmasi(id_barang, id_user, tgl_keluar, total_keluar)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<KeluarResponse>() {
@@ -117,37 +117,12 @@ public class KeluarPresenter {
 
 
 
-    void saveKeluar1(String id_barang, String id_user, String tgl_keluar, String total_keluar) {
+
+
+    void updateKonfirmasi(String id_keluar, String id_barang, String id_user, String tgl_keluar, String total_keluar) {
         view.showProgress();
         disposable.add(
-                apiInterface.saveKeluar1(id_barang, id_user, tgl_keluar, total_keluar)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<KeluarResponse>() {
-                            @Override
-                            public void onNext(KeluarResponse keluarResponse) {
-                                view.hideProgress();
-                                view.statusSuccess("berhasil ditambahkan");
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                view.hideProgress();
-                                view.statusError(e.getLocalizedMessage());
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                view.hideProgress();
-                            }
-                        })
-        );
-    }
-
-    void updateKeluar(String id_keluar, String id_barang, String id_user, String tgl_keluar, String total_keluar) {
-        view.showProgress();
-        disposable.add(
-                apiInterface.updateKeluar(id_keluar, id_barang, id_user, tgl_keluar, total_keluar)
+                apiInterface.updateKonfirmasi(id_keluar, id_barang, id_user, tgl_keluar, total_keluar)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableCompletableObserver(){
@@ -166,10 +141,10 @@ public class KeluarPresenter {
         );
     }
 
-    void deleteKeluar(String id_keluar) {
+    void deleteKonfirmasi(String id_keluar) {
         view.showProgress();
         disposable.add(
-                apiInterface.deleteKeluar(id_keluar)
+                apiInterface.deleteKonfirmasi(id_keluar)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableCompletableObserver(){

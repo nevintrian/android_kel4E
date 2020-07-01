@@ -28,6 +28,7 @@ import com.example.inventoria.ui.cart.CartFragment;
 import com.example.inventoria.ui.gudang.GudangFragment;
 import com.example.inventoria.ui.home.HomeFragment;
 import com.example.inventoria.ui.keluar.KeluarFragment;
+import com.example.inventoria.ui.konfirmasi.KonfirmasiFragment;
 import com.example.inventoria.ui.masuk.MasukFragment;
 import com.example.inventoria.ui.pelanggan.PelangganFragment;
 
@@ -59,7 +60,8 @@ public class MainActivity extends AppCompatActivity
 
         sessionManager.checkLogin();
 
-//        Benerin bug ketika rotasi landsacpe malah pindah ke mainActivity
+//
+
         if (savedInstanceState == null) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.mainFrame, new HomeFragment());
@@ -165,6 +167,11 @@ public class MainActivity extends AppCompatActivity
                    .beginTransaction()
                    .replace(R.id.mainFrame, new KeluarFragment())
                    .commit();
+       } else if (id == R.id.nav_konfirmasi) {
+           getSupportFragmentManager()
+                   .beginTransaction()
+                   .replace(R.id.mainFrame, new KonfirmasiFragment())
+                   .commit();
        } else if (id == R.id.navigation_home) {
            getSupportFragmentManager()
                    .beginTransaction()
@@ -180,6 +187,7 @@ public class MainActivity extends AppCompatActivity
                    .beginTransaction()
                    .replace(R.id.mainFrame, new CartFragment())
                    .commit();
+
         } else if (id == R.id.nav_logout) {
             sessionManager.logoutUser();
         }

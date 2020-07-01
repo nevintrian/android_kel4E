@@ -63,7 +63,8 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
 
     @BindView(R.id.content_update)
     LinearLayout content_update;
-
+    @BindView(R.id.content_beli)
+    LinearLayout content_beli;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +149,24 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
         }
     }
 
+
+    @OnClick(R.id.beli) void beli(){
+        CheckEditTextIsEmptyOrNot();
+
+        if (CheckEditText) {
+            presenter.saveKeluar1(
+
+                    id_barang,
+                    id_user,
+                    et_qty.getText().toString(),
+                    et_total_keluar.getText().toString()
+            );
+        }else{
+            Toast.makeText(KeluarActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
     @OnClick(R.id.update) void update() {
         CheckEditTextIsEmptyOrNot();
 
@@ -176,7 +195,7 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
 
     @Override
     public void showProgress() {
-        progressDialog.show();
+        progressDialog.dismiss();
     }
 
     @Override
@@ -242,8 +261,8 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
             getSupportActionBar().setTitle("Simpan data");
             s_nama1.setSelection(adapter.getItemIndexById(id_barang));
             s_nama.setSelection(adapter.getItemIndexById(id_user));
-            content_update.setVisibility(View.GONE);
-            content_simpan.setVisibility(View.VISIBLE);
+            content_beli.setVisibility(View.VISIBLE);
+            content_simpan.setVisibility(View.GONE);
         }else {
             getSupportActionBar().setTitle("Simpan data");
         }

@@ -252,7 +252,7 @@ public class BarangActivity extends AppCompatActivity implements BarangView {
 
     @Override
     public void showProgress() {
-        progressDialog.show();
+        progressDialog.dismiss();
     }
 
     @Override

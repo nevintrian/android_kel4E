@@ -122,7 +122,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void showProgress() {
-        progressDialog.show();
+        progressDialog.dismiss();
     }
 
     @Override

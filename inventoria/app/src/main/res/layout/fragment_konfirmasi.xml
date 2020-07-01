@@ -4,7 +4,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:orientation="vertical"
-             tools:context=".ui.masuk.MasukFragment">
+             tools:context=".ui.keluar.KeluarFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
@@ -12,20 +12,12 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerMasuk"
+            android:id="@+id/recyclerKeluar"
             android:layout_width="match_parent"
-            android:layout_marginBottom="500dp"
             android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/masukFab"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="70dp"
-        android:layout_marginRight="16dp"
-        android:src="@drawable/ic_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

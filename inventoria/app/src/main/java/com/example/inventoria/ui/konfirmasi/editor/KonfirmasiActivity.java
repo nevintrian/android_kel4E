@@ -1,4 +1,4 @@
-package com.example.inventoria.ui.masuk.editor;
+package com.example.inventoria.ui.konfirmasi.editor;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,8 +21,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.inventoria.R;
 import com.example.inventoria.network.response.BarangResponse;
 import com.example.inventoria.network.response.SupplierResponse;
+import com.example.inventoria.network.response.UserResponse;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.Url;
+import com.example.inventoria.ui.barang.editor.SpinnerSupplierAdapter;
+import com.example.inventoria.ui.gudang.editor.GudangActivity;
+import com.example.inventoria.ui.keluar.editor.KeluarPresenter;
+import com.example.inventoria.ui.keluar.editor.KeluarView;
+import com.example.inventoria.ui.keluar.editor.SpinnerUserAdapter;
+import com.example.inventoria.ui.keluar.search.SearchActivity;
+import com.example.inventoria.ui.masuk.editor.SpinnerBarangAdapter;
 
 
 import butterknife.BindView;
@@ -30,17 +38,16 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class MasukActivity extends AppCompatActivity implements MasukView {
-    SpinnerSupplierAdapter adapter;
+public class KonfirmasiActivity extends AppCompatActivity implements KonfirmasiView {
+    SpinnerUserAdapter adapter;
     SpinnerBarangAdapter adapter1;
-    MasukPresenter presenter;
+    KonfirmasiPresenter presenter;
     ProgressDialog progressDialog;
     SessionManager session;
     Boolean CheckEditText;
-    String id_masuk, nama_supplier, id_supplier, qty, total_masuk, nama_barang, harga, id_barang;
+    String id_keluar, id_user, nama, id_barang, nama_barang, qty, total_keluar, harga;
 
-
-    @BindView(R.id.nama_supplier)
+    @BindView(R.id.nama)
     Spinner s_nama;
 
     @BindView(R.id.nama_barang)
@@ -49,8 +56,8 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
     @BindView(R.id.qty)
     EditText et_qty;
 
-    @BindView(R.id.total_masuk)
-    EditText et_total_masuk;
+    @BindView(R.id.total_keluar)
+    EditText et_total_keluar;
 
     @BindView(R.id.content_simpan)
     LinearLayout content_simpan;
@@ -61,23 +68,23 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_masuk);
-
-        ButterKnife.bind(this);
+        setContentView(R.layout.activity_konfirmasi);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ButterKnife.bind(this);
+
         session = new SessionManager(this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading ...");
-        presenter = new MasukPresenter(this);
-        presenter.getListSupplier();
+        presenter = new KonfirmasiPresenter(this);
+        presenter.getListUser();
         presenter.getListBarang();
         initDataIntent();
         s_nama.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                nama_supplier = ((TextView) view.findViewById(R.id.nama_supplier)).getText().toString();
-                id_supplier = ((TextView) view.findViewById(R.id.id_supplier)).getText().toString();
+                nama = ((TextView) view.findViewById(R.id.nama)).getText().toString();
+                id_user = ((TextView) view.findViewById(R.id.id_user)).getText().toString();
 
             }
 
@@ -117,53 +124,57 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
 
         try {
             int total = Integer.parseInt(s_qty) * Integer.parseInt(harga);
-            et_total_masuk.setText(String.valueOf(total));
+            et_total_keluar.setText(String.valueOf(total));
         } catch (NumberFormatException e) {
 
         }
     }
 
 
-    @OnClick(R.id.simpan) void simpan() {
+
+    @OnClick(R.id.simpan) void simpan(){
         CheckEditTextIsEmptyOrNot();
 
         if (CheckEditText) {
-            presenter.saveMasuk(
+            presenter.saveKonfirmasi(
 
                     id_barang,
-                    id_supplier,
+                    id_user,
                     et_qty.getText().toString(),
-                    et_total_masuk.getText().toString()
+                    et_total_keluar.getText().toString()
             );
         }else{
-            Toast.makeText(MasukActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+            Toast.makeText(KonfirmasiActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
 
         }
     }
+
+
+
 
     @OnClick(R.id.update) void update() {
         CheckEditTextIsEmptyOrNot();
 
         if (CheckEditText) {
-            presenter.updateMasuk(
+            presenter.updateKonfirmasi(
 
-                    id_masuk,
+                    id_keluar,
                     id_barang,
-                    id_supplier,
+                    id_user,
                     et_qty.getText().toString(),
-                    et_total_masuk.getText().toString()
+                    et_total_keluar.getText().toString()
             );
         }else{
-            Toast.makeText(MasukActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
+            Toast.makeText(KonfirmasiActivity.this, "Data belum diisi", Toast.LENGTH_LONG).show();
 
         }
     }
 
 
     @OnClick(R.id.hapus) void hapus() {
-        presenter.deleteMasuk(
+        presenter.deleteKonfirmasi(
 
-                id_masuk
+                id_keluar
         );
     }
 
@@ -195,9 +206,9 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
         presenter.detachView();
     }
     @Override
-    public void setListSupplier(SupplierResponse supplierResponse) {
-        adapter = new SpinnerSupplierAdapter(this, R.layout.spinner_supplier,
-                supplierResponse.getData());
+    public void setListUser(UserResponse userResponse) {
+        adapter = new SpinnerUserAdapter(this, R.layout.spinner_user,
+                userResponse.getData());
         s_nama.setAdapter(adapter);
 
         setTextEditor();
@@ -214,27 +225,29 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
 
     private void initDataIntent() {
         Intent intent= getIntent();
-        id_masuk = intent.getStringExtra("id_masuk");
+        id_keluar = intent.getStringExtra("id_keluar");
         id_barang = intent.getStringExtra("id_barang");
-        id_supplier = intent.getStringExtra("id_supplier");
-        qty = intent.getStringExtra("qty_masuk");
-        total_masuk = intent.getStringExtra("total_masuk");
+        id_user = intent.getStringExtra("id_user");
+        qty = intent.getStringExtra("qty_keluar");
+        total_keluar = intent.getStringExtra("total_keluar");
     }
 
     private void setTextEditor() {
-        if (id_masuk != null) {
+        if (id_keluar != null) {
             getSupportActionBar().setTitle("Update data");
-            s_nama.setSelection(adapter.getItemIndexById(id_supplier));
             s_nama1.setSelection(adapter.getItemIndexById(id_barang));
+            s_nama.setSelection(adapter.getItemIndexById(id_user));
             et_qty.setText(qty);
-            et_total_masuk.setText(total_masuk);
+            et_total_keluar.setText(total_keluar);
 
             content_update.setVisibility(View.VISIBLE);
             content_simpan.setVisibility(View.GONE);
         } else {
             getSupportActionBar().setTitle("Simpan data");
         }
+
     }
+
 
 
     public void CheckEditTextIsEmptyOrNot() {
@@ -254,10 +267,10 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
             CheckEditText = true;
         }
     }
-
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        if (id_masuk != null) {
+        if (id_keluar != null) {
             inflater.inflate(R.menu.main, menu);
         }
         // return true so that the menu pop up is opened
@@ -271,7 +284,7 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
 
         if (id == R.id.cetak) {
             Intent intent = new Intent();
-            intent.setDataAndType(Uri.parse(Url.URL + "keluar/cetak_penjualan/" + id_masuk), "application/pdf");
+            intent.setDataAndType(Uri.parse(Url.URL + "keluar/cetak_penjualan/" + id_keluar), "application/pdf");
             startActivity(intent);
 
         }else if (id == android.R.id.home) {
@@ -279,4 +292,8 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
         }
         return true;
     }
+
+
+
+
 }

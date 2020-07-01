@@ -65,6 +65,8 @@
         </activity>
         <activity android:name=".ui.keluar.editor.KeluarActivity">
         </activity>
+        <activity android:name=".ui.konfirmasi.editor.KonfirmasiActivity">
+        </activity>
 
 
         <activity

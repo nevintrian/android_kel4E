@@ -344,6 +344,17 @@ public interface ApiInterface {
             @Field("qty_keluar") String qty_keluar,
             @Field("total_keluar") String total_keluar);
 
+
+    @FormUrlEncoded
+    @POST("home")
+    Observable<KeluarResponse> saveKeluar1(
+            @Field("id_barang") String id_barang,
+            @Field("id_user") String id_user,
+            @Field("qty_keluar") String qty_keluar,
+            @Field("total_keluar") String total_keluar);
+
+
+
     @FormUrlEncoded
     @PUT("keluar/{id_keluar}")
     Completable updateKeluar(
@@ -387,4 +398,34 @@ public interface ApiInterface {
     Observable<SupplierResponse> getSupplier(@Query("search") String search);
     @GET("barang")
     Observable<BarangResponse> getBarang(@Query("search") String search);
+
+
+
+
+    @GET("konfirmasi")
+    Observable<KeluarResponse> getKonfirmasis();
+    @FormUrlEncoded
+    @POST("konfirmasi")
+    Observable<KeluarResponse> saveKonfirmasi(
+            @Field("id_barang") String id_barang,
+            @Field("id_user") String id_user,
+            @Field("qty_keluar") String qty_keluar,
+            @Field("total_keluar") String total_keluar);
+
+
+
+    @FormUrlEncoded
+    @PUT("konfirmasi/{id_keluar}")
+    Completable updateKonfirmasi(
+            @Path("id_keluar") String id_keluar,
+            @Field("id_barang") String id_barang,
+            @Field("id_user") String id_user,
+            @Field("qty_keluar") String qty_keluar,
+            @Field("total_keluar") String total_keluar);
+
+    @DELETE("konfirmasi/{id_keluar}")
+    Completable deleteKonfirmasi(@Path("id_keluar") String id_keluar);
+
+
+
 }
