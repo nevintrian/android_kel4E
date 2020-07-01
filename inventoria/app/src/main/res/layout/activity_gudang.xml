@@ -98,24 +98,25 @@
             <EditText
                 android:id="@+id/tgl_lahir"
                 android:hint="Tanggal Lahir"
-
+                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <TextView
+            android:text="Pilih Jenis Kelamin :"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+        <Spinner
+            android:id="@+id/jenis_kelamin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/jenis_kelamin"
-                android:hint="Jenis Kelamin"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/jenis_kelamin"
+            android:hint="Jenis Kelamin"
+            android:inputType="text" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

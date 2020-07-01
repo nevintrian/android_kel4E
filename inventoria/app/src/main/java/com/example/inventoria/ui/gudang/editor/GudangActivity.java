@@ -1,6 +1,7 @@
 package com.example.inventoria.ui.gudang.editor;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,10 +35,12 @@ import com.example.inventoria.R;
 import com.example.inventoria.tools.FileUtils;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.Url;
+import com.example.inventoria.ui.daftar.DaftarActivity;
 
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -75,7 +80,7 @@ public class GudangActivity extends AppCompatActivity implements GudangView {
     @BindView(R.id.tgl_lahir)
     EditText et_tgl_lahir;
     @BindView(R.id.jenis_kelamin)
-    EditText et_jenis_kelamin;
+    Spinner et_jenis_kelamin;
     @BindView(R.id.alamat)
     EditText et_alamat;
     @BindView(R.id.no_telp)
@@ -98,6 +103,39 @@ public class GudangActivity extends AppCompatActivity implements GudangView {
 
         session = new SessionManager(this);
         presenter = new GudangPresenter(this);
+
+
+
+        final Calendar myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String myFormat = "yyyy-mm-dd"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                et_tgl_lahir.setText(sdf.format(myCalendar.getTime()));
+            }
+
+        };
+
+        et_tgl_lahir.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(GudangActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
 
 
         initDataIntent();
@@ -135,7 +173,7 @@ public class GudangActivity extends AppCompatActivity implements GudangView {
                 .toString());
         RequestBody tgl_lahirBody = RequestBody.create(MediaType.parse("text/plain"), et_tgl_lahir.getText()
                 .toString());
-        RequestBody jenis_kelaminBody = RequestBody.create(MediaType.parse("text/plain"), et_jenis_kelamin.getText()
+        RequestBody jenis_kelaminBody = RequestBody.create(MediaType.parse("text/plain"), et_jenis_kelamin.getSelectedItem()
                 .toString());
         RequestBody alamatBody = RequestBody.create(MediaType.parse("text/plain"), et_alamat.getText()
                 .toString());
@@ -192,7 +230,7 @@ public class GudangActivity extends AppCompatActivity implements GudangView {
                 .toString());
         RequestBody tgl_lahirBody = RequestBody.create(MediaType.parse("text/plain"), et_tgl_lahir.getText()
                 .toString());
-        RequestBody jenis_kelaminBody = RequestBody.create(MediaType.parse("text/plain"), et_jenis_kelamin.getText()
+        RequestBody jenis_kelaminBody = RequestBody.create(MediaType.parse("text/plain"), et_jenis_kelamin.getSelectedItem()
                 .toString());
         RequestBody alamatBody = RequestBody.create(MediaType.parse("text/plain"), et_alamat.getText()
                 .toString());
@@ -297,7 +335,8 @@ public class GudangActivity extends AppCompatActivity implements GudangView {
             et_level.setText(level);
             et_nama.setText(nama);
             et_tgl_lahir.setText(tgl_lahir);
-            et_jenis_kelamin.setText(jenis_kelamin);
+            et_jenis_kelamin.setSelection(((ArrayAdapter<String>)et_jenis_kelamin.getAdapter()).getPosition(jenis_kelamin));
+
             et_alamat.setText(alamat);
             et_no_telp.setText(no_telp);
 
@@ -405,12 +444,12 @@ public class GudangActivity extends AppCompatActivity implements GudangView {
         String level1 = et_level.getText().toString().trim();
         String nama1 = et_nama.getText().toString().trim();
         String tgl_lahir1 = et_tgl_lahir.getText().toString().trim();
-        String jenis_kelamin1 = et_jenis_kelamin.getText().toString().trim();
+
         String alamat1 = et_alamat.getText().toString().trim();
         String no_telp1 = et_no_telp.getText().toString().trim();
         boolean i= iv_foto.getDrawable()==null;
         // Checking whether EditText value is empty or not.
-        if (TextUtils.isEmpty(email1) || TextUtils.isEmpty(username1) || TextUtils.isEmpty(password1) || TextUtils.isEmpty(level1) || TextUtils.isEmpty(nama1) || TextUtils.isEmpty(tgl_lahir1) || TextUtils.isEmpty(jenis_kelamin1) || TextUtils.isEmpty(alamat1) || TextUtils.isEmpty(no_telp1) || i) {
+        if (TextUtils.isEmpty(email1) || TextUtils.isEmpty(username1) || TextUtils.isEmpty(password1) || TextUtils.isEmpty(level1) || TextUtils.isEmpty(nama1) || TextUtils.isEmpty(tgl_lahir1) || TextUtils.isEmpty(alamat1) || TextUtils.isEmpty(no_telp1) || i) {
 
             // If any of EditText is empty then set variable value as False.
             CheckEditText = false;

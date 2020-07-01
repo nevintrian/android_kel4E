@@ -1,12 +1,14 @@
 package com.example.inventoria.ui.daftar;
 
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,7 +31,10 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DaftarActivity extends AppCompatActivity {
@@ -83,6 +88,42 @@ public class DaftarActivity extends AppCompatActivity {
 
         });
 
+
+        final Calendar myCalendar = Calendar.getInstance();
+
+        EditText edittext= (EditText) findViewById(R.id.d_tgl_lahir);
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String myFormat = "yyyy-mm-dd"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                edittext.setText(sdf.format(myCalendar.getTime()));
+            }
+
+        };
+
+        edittext.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(DaftarActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
+
+
+
         Email = (EditText) findViewById(R.id.d_email);
 
         Username = (EditText) findViewById(R.id.d_username);
@@ -93,7 +134,7 @@ public class DaftarActivity extends AppCompatActivity {
 
         Level = (Spinner) findViewById(R.id.d_level);
 
-        Tgl_lahir = (EditText) findViewById(R.id.d_tgl_lahir);
+
 
         Jenis_kelamin = (Spinner) findViewById(R.id.d_jenis_kelamin);
 
@@ -220,6 +261,7 @@ public class DaftarActivity extends AppCompatActivity {
             CheckEditText = true ;
         }
     }
+
 
 
 
