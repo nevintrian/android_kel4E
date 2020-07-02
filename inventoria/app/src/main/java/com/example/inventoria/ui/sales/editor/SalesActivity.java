@@ -9,10 +9,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,7 +26,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.inventoria.BuildConfig;
@@ -36,8 +33,6 @@ import com.example.inventoria.R;
 import com.example.inventoria.tools.FileUtils;
 import com.example.inventoria.tools.SessionManager;
 import com.example.inventoria.tools.Url;
-import com.example.inventoria.ui.gudang.editor.GudangActivity;
-import com.example.inventoria.ui.user.editor.UserActivity;
 
 
 import java.io.File;
@@ -141,14 +136,14 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
     }
 
     @OnClick(R.id.select) void selectImage() {
+        if (permission()) {
+            Intent intentGallery = new Intent();
+            intentGallery.setType("image/*");
+            intentGallery.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intentGallery.createChooser(intentGallery, "Select Image"), REQUEST_GALLERY);
 
-                                Intent intentGallery = new Intent();
-                                intentGallery.setType("image/*");
-                                intentGallery.setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(intentGallery.createChooser(intentGallery, "Select Image"), REQUEST_GALLERY);
-
-                        }
-
+        }
+    }
 
     @OnClick(R.id.simpan) void simpan() {
         CheckEditTextIsEmptyOrNot();
@@ -351,7 +346,7 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
         }
     }
 
-    private void permission() {
+    private boolean permission() {
         if (
                 Build.VERSION.SDK_INT >= 23
                         && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -372,6 +367,7 @@ public class SalesActivity extends AppCompatActivity implements SalesView {
         } else {
 
         }
+        return true;
     }
 
     private int getIndex(Spinner spinner, String myString){

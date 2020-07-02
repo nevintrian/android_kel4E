@@ -258,7 +258,7 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
             content_update.setVisibility(View.VISIBLE);
             content_simpan.setVisibility(View.GONE);
         } else if (id_keluar==null && id_barang!=null) {
-            getSupportActionBar().setTitle("Simpan data");
+            getSupportActionBar().setTitle("Beli Barang");
             s_nama1.setSelection(adapter.getItemIndexById(id_barang));
             s_nama.setSelection(adapter.getItemIndexById(id_user));
             content_beli.setVisibility(View.VISIBLE);

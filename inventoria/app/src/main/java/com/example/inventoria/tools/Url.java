@@ -2,6 +2,6 @@ package com.example.inventoria.tools;
 
 public class Url {
 
-    public static final String URL = "http://192.168.43.178/inventori/";
+    public static final String URL = "http://udsrirejeki.wsjti.com/";
 
 }
