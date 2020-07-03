@@ -304,8 +304,9 @@ public class KeluarActivity extends AppCompatActivity implements KeluarView {
 
 
         if (id == R.id.cetak) {
-            Intent intent = new Intent();
-            intent.setDataAndType(Uri.parse(Url.URL + "keluar/cetak_penjualan/" + id_keluar), "application/pdf");
+            Intent intent = new Intent(KeluarActivity.this, KeluarWeb.class);
+            intent.putExtra("id_keluar", id_keluar);
+
             startActivity(intent);
 
         }else if (id == android.R.id.home) {

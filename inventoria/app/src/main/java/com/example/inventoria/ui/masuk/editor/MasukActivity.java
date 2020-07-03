@@ -270,8 +270,9 @@ public class MasukActivity extends AppCompatActivity implements MasukView {
 
 
         if (id == R.id.cetak) {
-            Intent intent = new Intent();
-            intent.setDataAndType(Uri.parse(Url.URL + "keluar/cetak_penjualan/" + id_masuk), "application/pdf");
+            Intent intent = new Intent(MasukActivity.this, MasukWeb.class);
+            intent.putExtra("id_masuk", id_masuk);
+
             startActivity(intent);
 
         }else if (id == android.R.id.home) {

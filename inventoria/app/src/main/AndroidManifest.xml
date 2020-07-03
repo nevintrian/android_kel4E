@@ -65,6 +65,10 @@
         </activity>
         <activity android:name=".ui.keluar.editor.KeluarActivity">
         </activity>
+        <activity android:name=".ui.keluar.editor.KeluarWeb">
+        </activity>
+        <activity android:name=".ui.masuk.editor.MasukWeb">
+        </activity>
         <activity android:name=".ui.konfirmasi.editor.KonfirmasiActivity">
         </activity>
 
